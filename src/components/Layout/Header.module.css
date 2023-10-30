@@ -14,6 +14,31 @@
   z-index: 10;
 }
 
+.link {
+  color: white;
+  text-decoration: none;
+  align-items: flex-start;
+}
+
+.horizontalList a:hover,
+.horizontalList a.active {
+  color: #2a2452;
+  text-decoration: underline;
+}
+
+.horizontalList {
+  list-style: none; /* Remove the default list bullet/number */
+  padding: 0; /* Remove default list padding */
+}
+
+.horizontalList li {
+  display: inline; /* Display list items horizontally */
+  margin-right: 50px; /* Add some spacing between list items */
+  font-size: 25px;
+}
+
+
+
 .main-image {
   width: 100%;
   height: 17rem;

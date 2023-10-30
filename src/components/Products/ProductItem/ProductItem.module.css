@@ -20,3 +20,21 @@
   color: cornflowerblue;
   font-size: 1.25rem;
 }
+
+.btn {
+  font: inherit;
+  cursor: pointer;
+  background-color: darkslateblue;
+  border: 1px solid darkslateblue;
+  color: white;
+  padding: 0.25rem 2rem;
+  border-radius: 20px;
+  font-weight: bold;
+
+}
+
+.btn:hover,
+.btn:active {
+  background-color: #2a2452;
+  border-color: #2a2452;
+}

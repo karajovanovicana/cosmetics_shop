@@ -13,12 +13,13 @@ const Cart = (props) => {
 
     let totalAmount = `$${cartCtx.totalAmount.toFixed(2)}`;
     if (totalAmount.toString() === "$-0.00") {
-        totalAmount = `$${0.00}`;
+        totalAmount = "$0.00";
     }
     const hasItems = cartCtx.items.length > 0;
 
     const cartItemRemoveHandler = (id) => {
         cartCtx.removeItem(id);
+        console.log(totalAmount.trim().toString())
     };
 
     const cartItemAddHandler = (item) => {
