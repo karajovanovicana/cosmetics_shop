@@ -14,6 +14,12 @@
   z-index: 10;
 }
 
+.icon {
+  width: 2.35rem;
+  height: 2.35rem;
+  margin-right: 0.5rem;
+}
+
 .link {
   color: white;
   text-decoration: none;
@@ -51,4 +57,29 @@
   height: 100%;
   object-fit: cover;
   transform: rotateZ(-5deg) translateY(-4rem) translateX(-1rem);
+}
+
+.button {
+  cursor: pointer;
+  font: inherit;
+  border: none;
+  background-color: darkslateblue;
+  color: white;
+  /*padding: 0.5rem 1rem;*/
+  /*padding-left: 1rem;*/
+  /*padding-right: 1rem;*/
+  /*padding-bottom: 1rem;*/
+  padding: 1rem 1rem;
+  margin-top: 3.5rem;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border-radius: 25px;
+  font-weight: bold;
+  text-underline: none;
+}
+
+.button:hover,
+.button:active {
+  background-color: #2a2452;
 }

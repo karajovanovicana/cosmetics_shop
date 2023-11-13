@@ -1,7 +1,10 @@
-import { Fragment } from 'react';
+import {Fragment, useContext} from 'react';
 import HeaderCartButton from './HeaderCartButton';
 import classes from './Header.module.css';
-import {Link, NavLink} from 'react-router-dom';
+import {Link, NavLink, useNavigate} from 'react-router-dom';
+import LoginIcon from '@mui/icons-material/Person';
+import LoginContext from "../../store/login-context";
+import LoginProvider from "../../store/LoginProvider";
 
 const Header = (props) => {
   // return (
@@ -14,6 +17,14 @@ const Header = (props) => {
   //     </div>
   //   </Fragment>
   // );
+
+    const loginCtx = useContext(LoginContext);
+    const navigate = useNavigate();
+
+    const logoutHandler = () => {
+        loginCtx.logout();
+        navigate("/login");
+    }
 
     return (
         <Fragment>
@@ -45,7 +56,7 @@ const Header = (props) => {
                                 About
                             </NavLink>
                         </li>
-                        <li>
+                        {loginCtx.loggedInUser.role === "admin" && loginCtx.isLoggedIn === true && <li>
                             <NavLink
                                 to="/add"
                                 className={({ isActive }) =>
@@ -54,11 +65,67 @@ const Header = (props) => {
                             >
                                 Add New Product
                             </NavLink>
-                        </li>
+                        </li>}
+                        {loginCtx.loggedInUser.role === "admin" && loginCtx.isLoggedIn === true && <li>
+                            <NavLink
+                                to="/assign-role"
+                                className={({ isActive }) =>
+                                    isActive ? classes.active : undefined
+                                } end
+                            >
+                                Assign Role
+                            </NavLink>
+                        </li>}
+                        {loginCtx.loggedInUser.role === "user" && loginCtx.isLoggedIn === true && <li>
+                            <span style={{"opacity": "0"}}>
+                                add new product
+                            </span>
+                        </li>}
+                        {/*<li>*/}
+
+                        {/*</li>*/}
                     </ul>
                 </nav>
-                {props.onShowCart && <HeaderCartButton onClick={props.onShowCart} />}
-                {!props.onShowCart && <div style={{padding: "0.75rem 8rem"}}></div> }
+                {props.onShowCart && loginCtx.isLoggedIn && loginCtx.loggedInUser.role === "user" && <HeaderCartButton onClick={props.onShowCart} />}
+                {!props.onShowCart && loginCtx.loggedInUser.role === "user" &&
+                    <div style={{padding: "0.75rem 8rem"}}></div> }
+                {!props.onShowCart && loginCtx.loggedInUser.role === "none" &&
+                    <div style={{padding: "0.75rem 8rem"}}></div> }
+                {props.onShowCart && !loginCtx.isLoggedIn && <div style={{padding: "0.75rem 8rem"}}></div> }
+                {/*{props.onShowCart && loginCtx.loggedInUser.role === "admin" && <div style={{padding: "0.75rem 8rem"}}></div> }*/}
+                {loginCtx.isLoggedIn === false && <NavLink
+                    style={{"color": "white", "textDecoration": "none"}}
+                    to="/login"
+                    className={({ isActive }) =>
+                        isActive ? classes.active : undefined
+                    } end
+                >
+                    <ul className={classes.horizontalList}>
+                    <li>
+                        <button className={classes.button} style={{"fontSize": "1.1rem"}}>
+                    Login
+                        </button>
+                    </li>
+                    </ul>
+                    {/*Authentication*/}
+                </NavLink>}
+
+                {loginCtx.isLoggedIn === true && <NavLink
+                    style={{"color": "white", "textDecoration": "none"}}
+                    to="/login"
+                    className={({ isActive }) =>
+                        isActive ? classes.active : undefined
+                    } end
+                >
+                    <ul className={classes.horizontalList}>
+                        <li>
+                        <button onClick={logoutHandler} className={classes.button} style={{"fontSize": "1.1rem"}}>
+                    Logout
+                        </button>
+                        </li>
+                    </ul>
+                </NavLink>}
+                    {/*Authentication*/}
                 {/*<h3>*/}
                 {/*<Link to={"/home"} className={classes.link}>Home Page</Link>*/}
                 {/*</h3>*/}

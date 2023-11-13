@@ -1,10 +1,10 @@
 .title {
-    margin-top: -8rem;
+    /*margin-top: 0rem;*/
     margin-left: 20rem;
 }
 
 .form {
-    margin: 2rem 20rem;
+    margin: -9rem 20rem;
     height: 17rem;
     /*overflow: auto;*/
 }

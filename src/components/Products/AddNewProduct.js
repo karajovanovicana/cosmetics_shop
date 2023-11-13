@@ -4,7 +4,10 @@ import Header from "../Layout/Header";
 import {useNavigate} from "react-router-dom";
 
 const isEmpty = (value) => value.trim() === '';
-// const isFiveChars = (value) => value.trim().length === 5;
+const isNotANumber = (value) => isNaN(value) && isNaN(parseFloat(value));
+
+const isNotImage = (value) => !value.endsWith(".jpg") && !value.endsWith(".png");
+
 const AddNewProduct = (props) => {
     const [formInputsValidity, setFormInputsValidity] = useState({
         description: true,
@@ -17,6 +20,7 @@ const AddNewProduct = (props) => {
     const imageInputRef = useRef();
     const descriptionInputRef = useRef();
     const priceInputRef = useRef();
+    const categoryInputRef = useRef();
     const navigate = useNavigate();
 
     const clearInputFields = () => {
@@ -37,11 +41,12 @@ const AddNewProduct = (props) => {
         const enteredImage = imageInputRef.current.value;
         const enteredDescription = descriptionInputRef.current.value;
         const enteredPrice = priceInputRef.current.value;
+        const selectedCategory = categoryInputRef.current.value;
 
         const enteredNameIsValid = !isEmpty(enteredName);
-        const enteredImageIsValid = !isEmpty(enteredImage);
+        const enteredImageIsValid = !isEmpty(enteredImage) && !isNotImage(enteredImage);
         const enteredDescriptionIsValid = !isEmpty(enteredDescription);
-        const enteredPriceIsValid = !isEmpty(enteredPrice);
+        const enteredPriceIsValid = !isEmpty(enteredPrice) && !isNotANumber(enteredPrice);
 
         setFormInputsValidity({
             name: enteredNameIsValid,
@@ -65,9 +70,11 @@ const AddNewProduct = (props) => {
             description: enteredDescription,
             image: enteredImage,
             price: parseFloat(enteredPrice),
+            category: selectedCategory
         });
 
-        clearInputFields();
+        // clearInputFields();
+        navigate("/");
     };
 
     const nameControlClasses = `${classes.control} ${
@@ -99,19 +106,26 @@ const AddNewProduct = (props) => {
             <div className={descriptionControlClasses}>
                 <label htmlFor='description'>Description</label>
                 <input type='text' id='description' ref={descriptionInputRef} />
-                {!formInputsValidity.description && <p>Please enter a valid street!</p>}
+                {!formInputsValidity.description && <p>Please enter a valid description!</p>}
             </div>
             <div className={imageControlClasses}>
                 <label htmlFor='image'>Image</label>
                 <input type='text' id='image' ref={imageInputRef} />
                 {!formInputsValidity.image && (
-                    <p>Please enter a valid image (5 characters long)!</p>
+                    <p>Please enter a valid image (must be .jpg or .png)!</p>
                 )}
             </div>
             <div className={priceControlClasses}>
                 <label htmlFor='price'>Price</label>
                 <input type='text' id='price' ref={priceInputRef} />
                 {!formInputsValidity.price && <p>Please enter a valid price!</p>}
+            </div>
+            <div className={classes.control}>
+                <label htmlFor="category_dropdown">Category:</label>
+                <select id="category_dropdown" ref={categoryInputRef}>
+                    <option value="makeup">makeup</option>
+                    <option value="skincare">skincare</option>
+                </select>
             </div>
             <div className={classes.actions}>
                 <button className={classes.submit}>Confirm</button>

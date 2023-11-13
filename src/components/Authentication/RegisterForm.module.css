@@ -1,5 +1,5 @@
 .title {
-    margin-top: -8rem;
+    /*margin-top: 0rem;*/
     margin-left: 20rem;
 }
 
@@ -23,16 +23,6 @@
 .control input {
     font: inherit;
     border: 1px solid #ccc;
-    border-radius: 4px;
-    width: 30rem;
-    height: 2rem;
-    max-width: 100%;
-}
-
-.control select {
-    font: inherit;
-    border: 1px solid #ccc;
-    background-color: white;
     border-radius: 4px;
     width: 30rem;
     height: 2rem;

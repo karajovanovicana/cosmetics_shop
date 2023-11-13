@@ -4,6 +4,7 @@ import CartItem from './CartItem';
 import classes from './Cart.module.css';
 import CartContext from '../../store/cart-context';
 import Checkout from './Checkout';
+import LoginContext from "../../store/login-context";
 
 const Cart = (props) => {
     const [isCheckout, setIsCheckout] = useState(false);

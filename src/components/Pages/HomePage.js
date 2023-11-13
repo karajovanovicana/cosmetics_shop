@@ -3,11 +3,15 @@ import CartProvider from "../../store/CartProvider";
 import Cart from "../Cart/Cart";
 import Header from "../Layout/Header";
 import Products from "../Products/Products";
+import DeleteItemModal from "../Products/DeleteItemModal";
+import LoginProvider from "../../store/LoginProvider";
+import loginContext from "../../store/login-context";
 // import { database, ref } from "../../database/firebaseConfig";
 // import {onValue} from "firebase/database"
 
 const HomePage = () => {
     const [cartIsShown, setCartIsShown] = useState(false);
+    const [deleteModalIsShown, setDeleteModalIsShown] = useState(false);
     // const [previousData, setPreviousData] = useState(null);
 
     const showCartHandler = () => {
@@ -16,6 +20,15 @@ const HomePage = () => {
 
     const hideCartHandler = () => {
         setCartIsShown(false);
+    };
+
+    const showDeleteModalHandler = () => {
+        setDeleteModalIsShown(true);
+    };
+
+
+    const hideDeleteModalHandler = () => {
+        setDeleteModalIsShown(false);
     };
 
     // useEffect(() => {
@@ -49,9 +62,10 @@ const HomePage = () => {
     return (
         <CartProvider>
             {cartIsShown && <Cart onClose={hideCartHandler} />}
+            {deleteModalIsShown && <DeleteItemModal onClose={hideDeleteModalHandler} />}
             <Header onShowCart={showCartHandler} />
             <main>
-                <Products />
+                <Products onShowDeleteModal={showDeleteModalHandler} />
             </main>
         </CartProvider>
     );

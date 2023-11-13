@@ -1,16 +1,20 @@
 import {useNavigate, useParams} from "react-router-dom";
-import {useEffect, useRef, useState} from "react";
+import {useContext, useEffect, useRef, useState} from "react";
 import Header from "../Layout/Header";
 import classes from "./AddNewProduct.module.css";
-
+import ProductContext from "../../store/product-context";
 
 const isEmpty = (value) => value.trim() === '';
+const isNotANumber = (value) => isNaN(value) && isNaN(parseFloat(value));
+const isNotImage = (value) => !value.endsWith(".jpg") && !value.endsWith(".png");
 const EditProduct = (props) => {
 
     const [products, setProducts] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [httpError, setHttpError] = useState();
     const navigate = useNavigate();
+    const [isProductEdited, setIsProductEdited] = useState(false);
+
 
     const [formInputsValidity, setFormInputsValidity] = useState({
         description: true,
@@ -23,6 +27,7 @@ const EditProduct = (props) => {
     const imageInputRef = useRef();
     const descriptionInputRef = useRef();
     const priceInputRef = useRef();
+    const categoryInputRef = useRef();
 
     const clearInputFields = () => {
         nameInputRef.current.value = '';
@@ -31,39 +36,43 @@ const EditProduct = (props) => {
         priceInputRef.current.value = '';
     };
 
-    useEffect(() => {
-        const fetchProducts = async () => {
-            const response = await fetch(
-                'https://cosmetics-shop-328c7-default-rtdb.europe-west1.firebasedatabase.app/products.json'
-            );
+    const productCtx = useContext(ProductContext);
+    const allProducts = productCtx.products;
+    // setProducts(allProducts);
 
-            if (!response.ok) {
-                throw new Error('Something went wrong!');
-            }
-
-            const responseData = await response.json();
-
-            const loadedProducts = [];
-
-            for (const key in responseData) {
-                loadedProducts.push({
-                    id: key,
-                    name: responseData[key].name,
-                    description: responseData[key].description,
-                    price: responseData[key].price,
-                    image: responseData[key].image
-                });
-            }
-
-            setProducts(loadedProducts);
-            setIsLoading(false);
-        };
-
-        fetchProducts().catch((error) => {
-            setIsLoading(false);
-            setHttpError(error.message);
-        });
-    }, []);
+    // useEffect(() => {
+    //     const fetchProducts = async () => {
+    //         const response = await fetch(
+    //             'https://cosmetics-shop-328c7-default-rtdb.europe-west1.firebasedatabase.app/products.json'
+    //         );
+    //
+    //         if (!response.ok) {
+    //             throw new Error('Something went wrong!');
+    //         }
+    //
+    //         const responseData = await response.json();
+    //
+    //         const loadedProducts = [];
+    //
+    //         for (const key in responseData) {
+    //             loadedProducts.push({
+    //                 id: key,
+    //                 name: responseData[key].name,
+    //                 description: responseData[key].description,
+    //                 price: responseData[key].price,
+    //                 image: responseData[key].image
+    //             });
+    //         }
+    //
+    //         setProducts(loadedProducts);
+    //         setIsLoading(false);
+    //     };
+    //
+    //     fetchProducts().catch((error) => {
+    //         setIsLoading(false);
+    //         setHttpError(error.message);
+    //     });
+    // }, []);
 
     // Find the product with the matching id
 
@@ -78,11 +87,12 @@ const EditProduct = (props) => {
         const enteredImage = imageInputRef.current.value;
         const enteredDescription = descriptionInputRef.current.value;
         const enteredPrice = priceInputRef.current.value;
+        const selectedCategory = categoryInputRef.current.value;
 
         const enteredNameIsValid = !isEmpty(enteredName);
-        const enteredImageIsValid = !isEmpty(enteredImage);
+        const enteredImageIsValid = !isEmpty(enteredImage) && !isNotImage(enteredImage);
         const enteredDescriptionIsValid = !isEmpty(enteredDescription);
-        const enteredPriceIsValid = !isEmpty(enteredPrice);
+        const enteredPriceIsValid = !isEmpty(enteredPrice) && !isNotANumber(enteredPrice);
 
         setFormInputsValidity({
             name: enteredNameIsValid,
@@ -101,16 +111,25 @@ const EditProduct = (props) => {
             return;
         }
 
+        const selectedProduct = allProducts.find((product) => product.id === props.productId);
+
+        if (enteredName !== selectedProduct.name || enteredDescription !== selectedProduct.description || enteredImage !== selectedProduct.image
+        || enteredPrice !== selectedProduct.price || selectedCategory !== selectedProduct.category) {
+            setIsProductEdited(true);
+        }
+
         props.onConfirm({
             name: enteredName,
             description: enteredDescription,
             image: enteredImage,
             price: parseFloat(enteredPrice),
+            category: selectedCategory,
+            isProductEdited: isProductEdited
         });
         navigate("/");
-        setTimeout(function () {
-            window.location.reload();
-        }, 120);
+        // setTimeout(function () {
+        //     window.location.reload();
+        // }, 120);
     };
 
     const nameControlClasses = `${classes.control} ${
@@ -125,12 +144,13 @@ const EditProduct = (props) => {
     const priceControlClasses = `${classes.control} ${
         formInputsValidity.price ? '' : classes.invalid
     }`;
-    const selectedProduct = products.find((product) => product.id === props.productId);
+    const selectedProduct = allProducts.find((product) => product.id === props.productId);
     const [inputValue, setInputValue] = useState({
         name: selectedProduct ? selectedProduct.name : '',
         description: selectedProduct ? selectedProduct.description : '',
         image: selectedProduct ? selectedProduct.image : '',
         price: selectedProduct ? selectedProduct.price : '',
+        category: selectedProduct ? selectedProduct.category : '',
     });
 
     // Effect to update input values when selectedProduct changes
@@ -141,6 +161,7 @@ const EditProduct = (props) => {
                 description: selectedProduct.description,
                 image: selectedProduct.image,
                 price: selectedProduct.price,
+                category: selectedProduct.category,
             });
         }
     }, [selectedProduct]);
@@ -151,6 +172,14 @@ const EditProduct = (props) => {
         setInputValue({
             ...inputValue,
             [name]: value,
+        });
+    };
+
+    const handleSelectChange = (event) => {
+        const { value } = event.target;
+        setInputValue({
+            ...inputValue,
+            category: value,
         });
     };
 
@@ -172,6 +201,7 @@ const EditProduct = (props) => {
                             value={inputValue.name}
                             onChange={handleInputChange}
                         />
+                        {!formInputsValidity.name && <p>Please enter a valid name!</p>}
                     </div>
                     <div className={descriptionControlClasses}>
                         <label htmlFor="description">Description</label>
@@ -183,6 +213,7 @@ const EditProduct = (props) => {
                             value={inputValue.description}
                             onChange={handleInputChange}
                         />
+                        {!formInputsValidity.description && <p>Please enter a valid description!</p>}
                     </div>
                     <div className={imageControlClasses}>
                         <label htmlFor="image">Image</label>
@@ -194,6 +225,9 @@ const EditProduct = (props) => {
                             value={inputValue.image}
                             onChange={handleInputChange}
                         />
+                        {!formInputsValidity.image && (
+                            <p>Please enter a valid image (must be .jpg or .png)!</p>
+                        )}
                     </div>
                     <div className={priceControlClasses}>
                         <label htmlFor="price">Price</label>
@@ -205,6 +239,15 @@ const EditProduct = (props) => {
                             value={inputValue.price}
                             onChange={handleInputChange}
                         />
+                        {!formInputsValidity.price && <p>Please enter a valid price!</p>}
+                    </div>
+                    <div className={classes.control}>
+                        <label htmlFor="category_dropdown">Category:</label>
+                        <select id="category_dropdown" ref={categoryInputRef} value={inputValue.category}
+                                onChange={handleSelectChange}>
+                            <option value="makeup">makeup</option>
+                            <option value="skincare">skincare</option>
+                        </select>
                     </div>
                     <div className={classes.actions}>
                         <button className={classes.submit}>Confirm</button>
