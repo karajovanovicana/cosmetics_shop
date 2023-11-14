@@ -1,0 +1,91 @@
+/* styles.module.css */
+
+.profileDropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.profileHeader {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 10px;
+    border: 1px solid cornflowerblue;
+    border-radius: 8px;
+    background: darkslateblue;
+}
+
+.profileHeader:hover {
+    background: #2a2452;
+}
+
+/*.profilePicture {*/
+/*    width: 30px;*/
+/*    height: 30px;*/
+/*    border-radius: 50%;*/
+/*    margin-right: 10px;*/
+/*}*/
+
+.profileName {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.arrow {
+    margin-left: auto;
+}
+
+.arrow.down {
+    transform: rotate(0deg);
+    transition: transform 0.3s ease;
+}
+
+.arrow.up {
+    transform: rotate(180deg);
+    transition: transform 0.3s ease;
+}
+
+.dropdownContent {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    /*background-color: #fff;*/
+    justify-content: center;
+    background-color: darkslateblue;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    display: none;
+}
+
+.dropdownContent ul {
+    list-style: none;
+    /*padding: 0;*/
+    /*margin: 0;*/
+}
+
+
+.dropdownContent li {
+    padding: 10px;
+    margin-left: -1rem;
+    margin-right: 1.8rem;
+    font-size: 1rem;
+    cursor: pointer;
+    border-bottom: 1px solid #ccc;
+    width: 10rem;
+    display: block; /* Display list items as blocks to make them vertical */
+    /*align-items: center;*/
+}
+
+.dropdownContent li:hover {
+    font-weight: bold;
+}
+
+.dropdownContent li:last-child {
+    border-bottom: none;
+}
+
+/* Show the dropdown content when the dropdown is open */
+.profileDropdown:hover .dropdownContent {
+    display: block;
+}

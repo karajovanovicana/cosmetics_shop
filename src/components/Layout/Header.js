@@ -5,6 +5,7 @@ import {Link, NavLink, useNavigate} from 'react-router-dom';
 import LoginIcon from '@mui/icons-material/Person';
 import LoginContext from "../../store/login-context";
 import LoginProvider from "../../store/LoginProvider";
+import ProfileDropdown from "../Authentication/ProfileDropdown";
 
 const Header = (props) => {
   // return (
@@ -110,21 +111,38 @@ const Header = (props) => {
                     {/*Authentication*/}
                 </NavLink>}
 
-                {loginCtx.isLoggedIn === true && <NavLink
-                    style={{"color": "white", "textDecoration": "none"}}
-                    to="/login"
-                    className={({ isActive }) =>
-                        isActive ? classes.active : undefined
-                    } end
-                >
-                    <ul className={classes.horizontalList}>
-                        <li>
-                        <button onClick={logoutHandler} className={classes.button} style={{"fontSize": "1.1rem"}}>
-                    Logout
-                        </button>
-                        </li>
-                    </ul>
-                </NavLink>}
+                {/*{loginCtx.isLoggedIn === true && <NavLink*/}
+                {/*    style={{"color": "white", "textDecoration": "none"}}*/}
+                {/*    to="/profile"*/}
+                {/*    className={({ isActive }) =>*/}
+                {/*        isActive ? classes.active : undefined*/}
+                {/*    } end*/}
+                {/*>*/}
+                {loginCtx.isLoggedIn === true && <ul className={classes.horizontalList}>
+                        {/*<li>*/}
+                        {/*    <button className={classes.button} style={{"fontSize": "1.1rem"}}>*/}
+                        {/*        Profile*/}
+                        {/*    </button>*/}
+                        {/*</li>*/}
+                        <ProfileDropdown/>
+                    </ul>}
+                {/*</NavLink>}*/}
+
+                {/*{loginCtx.isLoggedIn === true && <NavLink*/}
+                {/*    style={{"color": "white", "textDecoration": "none"}}*/}
+                {/*    to="/login"*/}
+                {/*    className={({ isActive }) =>*/}
+                {/*        isActive ? classes.active : undefined*/}
+                {/*    } end*/}
+                {/*>*/}
+                {/*    <ul className={classes.horizontalList}>*/}
+                {/*        <li>*/}
+                {/*        <button onClick={logoutHandler} className={classes.button} style={{"fontSize": "1.1rem"}}>*/}
+                {/*    Logout*/}
+                {/*        </button>*/}
+                {/*        </li>*/}
+                {/*    </ul>*/}
+                {/*</NavLink>}*/}
                     {/*Authentication*/}
                 {/*<h3>*/}
                 {/*<Link to={"/home"} className={classes.link}>Home Page</Link>*/}

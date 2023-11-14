@@ -20,6 +20,8 @@ import LoginProvider from "./store/LoginProvider";
 import ProductProvider from "./store/ProductProvider";
 import AssignRoleToUser from "./components/Authentication/AssignRoleToUser";
 import AssignRoleToUserPage from "./components/Pages/AssignRoleToUserPage";
+import AllOrdersPage from "./components/Pages/AllOrdersPage";
+import OrderProvider from "./store/OrderProvider";
 
 
 // const router = createBrowserRouter([
@@ -43,15 +45,16 @@ const router = createBrowserRouter([
             { path: '/register', element: <RegisterPage />},
             { path: '/login', element: <LoginPage />},
             { path: '/assign-role', element: <AssignRoleToUserPage />},
+            { path: '/orders', element: <AllOrdersPage />},
         ],
     }
 ]);
 
 function App() {
 
-    return<ProductProvider> <LoginProvider>
+    return<OrderProvider><ProductProvider> <LoginProvider>
      <RouterProvider router={router} />;
-    </LoginProvider></ProductProvider>
+    </LoginProvider></ProductProvider></OrderProvider>
 }
 
 export default App;

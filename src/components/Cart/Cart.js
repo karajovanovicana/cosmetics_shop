@@ -5,12 +5,14 @@ import classes from './Cart.module.css';
 import CartContext from '../../store/cart-context';
 import Checkout from './Checkout';
 import LoginContext from "../../store/login-context";
+import OrderContext from "../../store/order-context";
 
 const Cart = (props) => {
     const [isCheckout, setIsCheckout] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [didSubmit, setDidSubmit] = useState(false);
     const cartCtx = useContext(CartContext);
+    const orderCtx = useContext(OrderContext);
 
     let totalAmount = `$${cartCtx.totalAmount.toFixed(2)}`;
     if (totalAmount.toString() === "$-0.00") {
@@ -33,11 +35,15 @@ const Cart = (props) => {
 
     const submitOrderHandler = async (userData) => {
         setIsSubmitting(true);
+        orderCtx.orderAddedHandler();
+
+        const currentDate = new Date();
         await fetch('https://cosmetics-shop-328c7-default-rtdb.europe-west1.firebasedatabase.app/orders.json', {
             method: 'POST',
             body: JSON.stringify({
                 user: userData,
                 orderedItems: cartCtx.items,
+                date: currentDate.toString()
             }),
         });
         setIsSubmitting(false);
