@@ -4,7 +4,8 @@ import classes from './Checkout.module.css';
 import LoginContext from "../../store/login-context";
 
 const isEmpty = (value) => value.trim() === '';
-const isFiveChars = (value) => value.trim().length === 5;
+// const isFiveChars = (value) => value.trim().length === 5;
+const isNotANumber = (value) => isNaN(value) && isNaN(parseFloat(value));
 
 const Checkout = (props) => {
     const [formInputsValidity, setFormInputsValidity] = useState({
@@ -37,7 +38,7 @@ const Checkout = (props) => {
         const enteredNameIsValid = !isEmpty(enteredName);
         const enteredStreetIsValid = !isEmpty(enteredStreet);
         const enteredCityIsValid = !isEmpty(enteredCity);
-        const enteredPostalCodeIsValid = isFiveChars(enteredPostalCode);
+        const enteredPostalCodeIsValid = !isEmpty(enteredPostalCode) && !isNotANumber(enteredPostalCode);
 
         setFormInputsValidity({
             email: enteredEmailIsValid,
@@ -64,6 +65,7 @@ const Checkout = (props) => {
             street: enteredStreet,
             city: enteredCity,
             postalCode: enteredPostalCode,
+            totalAmount: props.totalAmount
         });
     };
 
@@ -121,15 +123,15 @@ const Checkout = (props) => {
                 {!formInputsValidity.name && <p>Please enter a valid name!</p>}
             </div>
             <div className={streetControlClasses}>
-                <label htmlFor='street'>Street</label>
+                <label htmlFor='street'>Address</label>
                 <input type='text' id='street' ref={streetInputRef} />
-                {!formInputsValidity.street && <p>Please enter a valid street!</p>}
+                {!formInputsValidity.street && <p>Please enter a valid address!</p>}
             </div>
             <div className={postalCodeControlClasses}>
                 <label htmlFor='postal'>Postal Code</label>
                 <input type='text' id='postal' ref={postalCodeInputRef} />
                 {!formInputsValidity.postalCode && (
-                    <p>Please enter a valid postal code (5 characters long)!</p>
+                    <p>Please enter a valid postal code!</p>
                 )}
             </div>
             <div className={cityControlClasses}>

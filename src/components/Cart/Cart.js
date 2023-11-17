@@ -13,20 +13,23 @@ const Cart = (props) => {
     const [didSubmit, setDidSubmit] = useState(false);
     const cartCtx = useContext(CartContext);
     const orderCtx = useContext(OrderContext);
+    cartCtx.isInCartHandler(true);
 
     let totalAmount = `$${cartCtx.totalAmount.toFixed(2)}`;
     if (totalAmount.toString() === "$-0.00") {
         totalAmount = "$0.00";
     }
-    const hasItems = cartCtx.items.length > 0;
+    const hasItems = cartCtx.cart.length > 0;
 
     const cartItemRemoveHandler = (id) => {
-        cartCtx.removeItem(id);
-        console.log(totalAmount.trim().toString())
+        cartCtx.removeItemFromCartHandler(id);
+        // console.log(totalAmount.trim().toString())
     };
 
     const cartItemAddHandler = (item) => {
-        cartCtx.addItem(item);
+        cartCtx.isInCartHandler(true);
+        cartCtx.addItemToCartHandler(item);
+        cartCtx.handleProductCounter(1);
     };
 
     const orderHandler = () => {
@@ -42,18 +45,18 @@ const Cart = (props) => {
             method: 'POST',
             body: JSON.stringify({
                 user: userData,
-                orderedItems: cartCtx.items,
+                orderedItems: cartCtx.cart,
                 date: currentDate.toString()
             }),
         });
         setIsSubmitting(false);
         setDidSubmit(true);
-        cartCtx.clearCart();
+        cartCtx.clearCartHandler();
     };
 
     const cartItems = (
         <ul className={classes['cart-items']}>
-            {cartCtx.items.map((item) => (
+            {cartCtx.cart.map((item) => (
                 <CartItem
                     key={item.id}
                     name={item.name}
@@ -87,7 +90,7 @@ const Cart = (props) => {
                 <span>{totalAmount}</span>
             </div>
             {isCheckout && (
-                <Checkout onConfirm={submitOrderHandler} onCancel={props.onClose} />
+                <Checkout totalAmount={totalAmount} onConfirm={submitOrderHandler} onCancel={props.onClose} />
             )}
             {!isCheckout && modalActions}
         </React.Fragment>

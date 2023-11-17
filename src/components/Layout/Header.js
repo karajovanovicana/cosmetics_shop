@@ -87,9 +87,10 @@ const Header = (props) => {
                         {/*</li>*/}
                     </ul>
                 </nav>
-                {props.onShowCart && loginCtx.isLoggedIn && loginCtx.loggedInUser.role === "user" && <HeaderCartButton onClick={props.onShowCart} />}
-                {!props.onShowCart && loginCtx.loggedInUser.role === "user" &&
-                    <div style={{padding: "0.75rem 8rem"}}></div> }
+                {loginCtx.isLoggedIn && loginCtx.loggedInUser.role === "user" && <HeaderCartButton onClick={props.onShowCart} />}
+                {/*{props.onShowCart && loginCtx.isLoggedIn && loginCtx.loggedInUser.role === "user" && <HeaderCartButton onClick={props.onShowCart} />}*/}
+                {/*{!props.onShowCart && loginCtx.loggedInUser.role === "user" &&*/}
+                {/*    <div style={{padding: "0.75rem 8rem"}}></div> }*/}
                 {!props.onShowCart && loginCtx.loggedInUser.role === "none" &&
                     <div style={{padding: "0.75rem 8rem"}}></div> }
                 {props.onShowCart && !loginCtx.isLoggedIn && <div style={{padding: "0.75rem 8rem"}}></div> }

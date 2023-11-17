@@ -9,12 +9,14 @@
   list-style: none;
   margin: 0;
   padding: 0;
+  overflow: scroll; /* Add this line to enable scrolling */
+  max-height: 60rem;
 }
+
 .input {
   width: 35rem;
   height: 2.5rem;
   transition: border 0.3s ease;
-
 }
 
 .select {
@@ -54,3 +56,4 @@
     transform: translateY(0);
   }
 }
+

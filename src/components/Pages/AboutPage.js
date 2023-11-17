@@ -2,8 +2,9 @@ import CartProvider from "../../store/CartProvider";
 import Cart from "../Cart/Cart";
 import Header from "../Layout/Header";
 import Products from "../Products/Products";
-import {useState} from "react";
+import React, {useState} from "react";
 import classes from "../Products/ProductsSummary.module.css";
+import Footer from "../Layout/Footer";
 
 const AboutPage = () => {
 
@@ -30,8 +31,9 @@ const AboutPage = () => {
 
     return (
         <div>
-            {/*{cartIsShown && <Cart onClose={hideCartHandler} />}*/}
-            <Header />
+            {cartIsShown && <Cart onClose={hideCartHandler} />}
+            <Header onShowCart={showCartHandler} />
+            {cartIsShown && <Cart onClose={hideCartHandler} />}
             <main>
                 <section className={classes.summary}>
                     <h2>Makeup and sanitary products</h2>
@@ -46,6 +48,9 @@ const AboutPage = () => {
                     </p>
                 </section>
             </main>
+            <div style={{"marginTop": "470px"}}>
+            <Footer/>
+            </div>
         </div>
     );
 }

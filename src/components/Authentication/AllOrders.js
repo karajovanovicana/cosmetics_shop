@@ -17,14 +17,15 @@ const AllOrders = (props) => {
 
     return (
         <div style={{"margin": "-10rem 5rem"}}>
-            <Header/>
-            <h2>Order List</h2>
+            {loginCtx.loggedInUser.role === "user" && <h2>Order List</h2>}
+            {loginCtx.loggedInUser.role === "admin" && <h2>All User Orders List</h2>}
             <table className={classes.table}>
                 <thead>
                 <tr>
                     <th>Order ID</th>
                     <th>Date</th>
                     <th>Ordered Items</th>
+                    <th>Total amount</th>
                     <th>User Email</th>
                 </tr>
                 </thead>
@@ -34,6 +35,7 @@ const AllOrders = (props) => {
                         <td>{index + 1}</td>
                         <td>{order.date.substring(0, 24)}</td>
                         <td>{order.orderedItems.map(item => (<td key={item.id}>{item.name} x {item.amount} </td>))}</td>
+                        <td>{order.user.totalAmount}</td>
                         <td>{order.user.email}</td>
                     </tr>
                 ))}
@@ -44,6 +46,7 @@ const AllOrders = (props) => {
                         <td>{index + 1}</td>
                         <td>{order.date.substring(0, 24)}</td>
                         <td>{order.orderedItems.map(item => (<td key={item.id}>{item.name} x {item.amount} </td>))}</td>
+                        <td>{order.user.totalAmount}</td>
                         <td>{order.user.email}</td>
                     </tr>
                 ))}

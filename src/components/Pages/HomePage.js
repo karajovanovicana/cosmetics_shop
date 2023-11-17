@@ -6,6 +6,7 @@ import Products from "../Products/Products";
 import DeleteItemModal from "../Products/DeleteItemModal";
 import LoginProvider from "../../store/LoginProvider";
 import loginContext from "../../store/login-context";
+import Footer from "../Layout/Footer";
 // import { database, ref } from "../../database/firebaseConfig";
 // import {onValue} from "firebase/database"
 
@@ -60,14 +61,15 @@ const HomePage = () => {
     // }, [previousData]); // Empty dependency array ensures that this effect runs only once when the component mounts
 
     return (
-        <CartProvider>
+        <div>
             {cartIsShown && <Cart onClose={hideCartHandler} />}
             {deleteModalIsShown && <DeleteItemModal onClose={hideDeleteModalHandler} />}
             <Header onShowCart={showCartHandler} />
             <main>
                 <Products onShowDeleteModal={showDeleteModalHandler} />
             </main>
-        </CartProvider>
+            <Footer/>
+        </div>
     );
 }
 

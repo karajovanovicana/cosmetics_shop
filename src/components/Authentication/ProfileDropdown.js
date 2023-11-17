@@ -39,7 +39,8 @@ const ProfileDropdown = () => {
                 <div className={classes.dropdownContent}>
                     {/* Dropdown content goes here */}
                     <ul>
-                        <li onClick={orderPageHandler}>Orders</li>
+                        {loginCtx.loggedInUser.role === "user" && <li onClick={orderPageHandler}>Orders</li>}
+                        {loginCtx.loggedInUser.role === "admin" && <li onClick={orderPageHandler}>All User Orders</li>}
                         <li onClick={logoutHandler}>Logout</li>
                     </ul>
                 </div>

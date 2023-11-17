@@ -15,6 +15,7 @@ const ProductItem = (props) => {
   const price = `$${props.price.toFixed(2)}`;
   const [isProductEdited, setIsProductEdited ] = useState(false);
   const [deleteModalIsShown, setDeleteModalIsShown] = useState(false);
+  cartCtx.isInCartHandler(false);
 
     const [reloadComponent, setReloadComponent] = useState(false);
 
@@ -33,15 +34,18 @@ const ProductItem = (props) => {
         setDeleteModalIsShown(false);
     };
 
-  const addToCartHandler = amount => {
-    cartCtx.addItem({
-      id: props.id,
-      name: props.name,
-      amount: amount,
-      price: props.price,
-      image: props.image
-    });
-  };
+    const addToCartHandler = amount => {
+        // cartCtx.isInCartHandler(false);
+        cartCtx.handleProductCounter(amount);
+        cartCtx.addItemToCartHandler({
+            id: props.id,
+            name: props.name,
+            amount: amount,
+            // amount: cartCtx.productCounter,
+            price: props.price,
+            image: props.image
+        });
+    };
 
     const editItemHandler = async () => {
         // Navigate to the "/add" page and forward the product as a prop
