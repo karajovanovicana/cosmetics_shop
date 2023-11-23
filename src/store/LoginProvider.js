@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import LoginContext from './login-context';
+import CartContext from "./cart-context";
 
 const LoginProvider = (props) => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -7,6 +8,7 @@ const LoginProvider = (props) => {
     const [isRoleChanged, setIsRoleChanged] = useState(false);
     const [loggedInUser, setLoggedInUser] = useState({ role: "none" });
     const [users, setUsers] = useState([]);
+    const cartCtx = useContext(CartContext);
 
     const login = (email, password) => {
         // Find the user with the given email and check the password
@@ -19,9 +21,19 @@ const LoginProvider = (props) => {
         }
     };
 
+
     const logout = () => {
         setIsLoggedIn(false);
         setLoggedInUser({ role: "none" });
+
+
+            if(loggedInUser.role === "user") {
+                localStorage.setItem(`${loggedInUser.email}cart`, JSON.stringify(cartCtx.cart));
+                console.log("kcdmnsjwdcks", JSON.stringify(cartCtx.cart));
+                console.log("AAkcdmnsjwdcks", JSON.parse(JSON.stringify(cartCtx.cart)));
+                localStorage.setItem(`user-${loggedInUser.email}-productCounter`, JSON.stringify(cartCtx.productCounter));
+                localStorage.setItem(`user-${loggedInUser.email}-totalAmount`, JSON.stringify(cartCtx.totalAmount));
+            }
     };
 
     const register = () => {
@@ -77,7 +89,28 @@ const LoginProvider = (props) => {
 
     useEffect(() => {
         console.log(loggedInUser);
-    }, [loggedInUser]); // Add this useEffect to log loggedInUser when it changes
+        if(loggedInUser.role === "user") {
+            console.log("AAA",login.role);
+            const storedCart = JSON.parse(localStorage.getItem
+            (`${loggedInUser.email}cart`));
+            const storedProductCounter = JSON.parse(localStorage.getItem
+            (`user-${loggedInUser.email}-productCounter`));
+            const storedTotalAmount = JSON.parse(localStorage.
+            getItem(`user-${loggedInUser.email}-totalAmount`));
+
+            console.log("sc",storedCart);
+            console.log("sc11",storedCart);
+            cartCtx.getCartFromStorage(storedCart);
+            cartCtx.getProductCounterFromStorage(storedProductCounter);
+            cartCtx.getTotalAmountFromStorage(storedTotalAmount);
+
+        }
+        else {
+            cartCtx.getCartFromStorage([]);
+            cartCtx.getProductCounterFromStorage(0);
+            cartCtx.getTotalAmountFromStorage(0);
+        }
+}, [loggedInUser]); // Add this useEffect to log loggedInUser when it changes
 
     return (
         <LoginContext.Provider value={{ isLoggedIn, loggedInUser, login, logout, register, users, changeRoleHandler }}>

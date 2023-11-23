@@ -79,17 +79,17 @@ const CartProvider = (props) => {
   const [totalAmount, setTotalAmount] = useState(0);
   const [isInCart, setIsInCart] = useState(false);
 
-  // const getCartFromStorage = (storedCart) => {
-  //   setCart(storedCart);
-  // }
-  //
-  // const getProductCounterFromStorage = (storedCounter) => {
-  //   setProductCounter(storedCounter);
-  // }
-  //
-  // const getTotalAmountFromStorage = (storedAmount) => {
-  //   setTotalAmount(storedAmount);
-  // }
+  const getCartFromStorage = (storedCart) => {
+    setCart(storedCart);
+  }
+
+  const getProductCounterFromStorage = (storedCounter) => {
+    setProductCounter(storedCounter);
+  }
+
+  const getTotalAmountFromStorage = (storedAmount) => {
+    setTotalAmount(storedAmount);
+  }
 
 
   // const loginCtx = useContext(LoginContext);
@@ -233,7 +233,8 @@ const CartProvider = (props) => {
 
   return (
       <CartContext.Provider value={{addItemToCartHandler, removeItemFromCartHandler, clearCartHandler,
-        cart, totalAmount, productCounter, handleProductCounter, isInCartHandler, isInCart}}>
+        cart, totalAmount, productCounter, handleProductCounter, isInCartHandler, isInCart,
+        getCartFromStorage, getProductCounterFromStorage, getTotalAmountFromStorage}}>
         {props.children}
       </CartContext.Provider>
   );

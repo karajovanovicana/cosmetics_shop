@@ -1,4 +1,6 @@
-import React, {createContext} from 'react';
+import React, {createContext, useContext} from 'react';
+import LoginContext from "./login-context";
+
 
 const CartContext = createContext({
   addItemToCartHandler: (item) => {},
@@ -14,5 +16,4 @@ const CartContext = createContext({
   getCartFromStorage: (cart) => {},
   getTotalAmountFromStorage: (amount) => {}
 });
-
 export default CartContext;

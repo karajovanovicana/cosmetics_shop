@@ -20,60 +20,41 @@ const Cart = (props) => {
     }, [cartCtx.isInCart])
 
     // useEffect(() => {
-    //     // Save the cart in localStorage whenever it changes
-    //     // const storedCart = localStorage.getItem(`user-${user.email}-cart`);
-    //     localStorage.setItem(`user-${user.email}-cart`, JSON.stringify(cartCtx.cart));
-    // }, [cartCtx.cart]);
-
-    // const cartCtx = useContext(CartContext);
-    // console.log(cartCtx
-    // )
-    // const loginCtx = useContext(LoginContext);
-
-
-    // useEffect(() => {
     //     if(loginCtx.loggedInUser.role === "user") {
     //         const storedCart = JSON.parse(localStorage.getItem
-    //         (`${loginCtx.loggedInUser.email}cart`)) || [];
+    //         (`${loginCtx.loggedInUser.email}cart`));
     //         const storedProductCounter = JSON.parse(localStorage.getItem
-    //         (`user-${loginCtx.loggedInUser.email}-productCounter`)) || 0;
+    //         (`user-${loginCtx.loggedInUser.email}-productCounter`));
     //         const storedTotalAmount = JSON.parse(localStorage.
-    //         getItem(`user-${loginCtx.loggedInUser.email}-totalAmount`)) || 0;
-    //         // useEffect(() => {
-    //         //     // Save the cart in localStorage whenever it changes
-    //         //     // const storedCart = localStorage.getItem(`user-${user.email}-cart`);
-    //         //     localStorage.setItem(`user-${user.email}-cart`, JSON.stringify(cartCtx.cart));
-    //         // }, [cartCtx.cart]);
+    //         getItem(`user-${loginCtx.loggedInUser.email}-totalAmount`));
     //
-    //         //try {
-    //             console.log("sc",storedCart);
-    //             const storedCart1=[storedCart];
-    //             console.log("sc11",storedCart);
-    //            //cartCtx.getCartFromStorage(storedCart1);
-    //        // } catch (error) {
-    //        //     console.error('Error parsing stored data:', error);
-    //         //}
-    //         cartCtx.getProductCounterFromStorage(storedProductCounter);
-    //         cartCtx.getTotalAmountFromStorage(storedTotalAmount);
-    //         // setTotalAmount(storedTotalAmount);
-    //         // cartCtx.handleProductCounter(storedProductCounter);
-    //         // cartCtx.
-    //     }
-    //     else {
-    //         cartCtx.getCartFromStorage([]);
-    //          cartCtx.getProductCounterFromStorage(0);
-    //          cartCtx.getTotalAmountFromStorage(0);
-    //     }
-    // }, [loginCtx.loggedInUser]);
-    //
-    // useEffect(() => {
+    //        console.log("sc",storedCart);
+    //        console.log("sc11",storedCart);
+    //        cartCtx.getCartFromStorage(storedCart);
+    //        cartCtx.getProductCounterFromStorage(storedProductCounter);
+    //        cartCtx.getTotalAmountFromStorage(storedTotalAmount);
     //
     //         localStorage.setItem(`${loginCtx.loggedInUser.email}cart`, JSON.stringify(cartCtx.cart));
     //         console.log("kcdmnsjwdcks", JSON.stringify(cartCtx.cart));
     //         console.log("AAkcdmnsjwdcks", JSON.parse(JSON.stringify(cartCtx.cart)));
     //         localStorage.setItem(`user-${loginCtx.loggedInUser.email}-productCounter`, JSON.stringify(cartCtx.productCounter));
     //         localStorage.setItem(`user-${loginCtx.loggedInUser.email}-totalAmount`, JSON.stringify(cartCtx.totalAmount));
-    //
+    //     }
+    //     else {
+    //         cartCtx.getCartFromStorage([]);
+    //         cartCtx.getProductCounterFromStorage(0);
+    //         cartCtx.getTotalAmountFromStorage(0);
+    //     }
+    // }, [loginCtx.loggedInUser]);
+
+    // useEffect(() => {
+    //     if(loginCtx.loggedInUser.role === "user") {
+    //         localStorage.setItem(`${loginCtx.loggedInUser.email}cart`, JSON.stringify(cartCtx.cart));
+    //         console.log("kcdmnsjwdcks", JSON.stringify(cartCtx.cart));
+    //         console.log("AAkcdmnsjwdcks", JSON.parse(JSON.stringify(cartCtx.cart)));
+    //         localStorage.setItem(`user-${loginCtx.loggedInUser.email}-productCounter`, JSON.stringify(cartCtx.productCounter));
+    //         localStorage.setItem(`user-${loginCtx.loggedInUser.email}-totalAmount`, JSON.stringify(cartCtx.totalAmount));
+    //     }
     // },  [loginCtx.loggedInUser]);
 
     let totalAmount = `$${cartCtx.totalAmount.toFixed(2)}`;
@@ -112,6 +93,9 @@ const Cart = (props) => {
         });
         setIsSubmitting(false);
         setDidSubmit(true);
+        localStorage.setItem(`${loginCtx.loggedInUser.email}cart`, JSON.stringify([]));
+        localStorage.setItem(`user-${loginCtx.loggedInUser.email}-productCounter`, JSON.stringify(0));
+        localStorage.setItem(`user-${loginCtx.loggedInUser.email}-totalAmount`, JSON.stringify(0));
         cartCtx.clearCartHandler();
     };
 

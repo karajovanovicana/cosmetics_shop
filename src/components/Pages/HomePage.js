@@ -109,6 +109,7 @@ const HomePage = () => {
     //     };
     // }, [previousData]); // Empty dependency array ensures that this effect runs only once when the component mounts
 
+
     return (
         <div>
             {cartIsShown && <Cart onClose={hideCartHandler} />}

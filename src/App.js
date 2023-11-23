@@ -55,7 +55,8 @@ const router = createBrowserRouter([
 
 function App() {
 
-    return<CartProvider><OrderProvider><ProductProvider> <LoginProvider>
+    return<CartProvider><OrderProvider><ProductProvider>
+        <LoginProvider>
      <RouterProvider router={router} />;
     </LoginProvider></ProductProvider></OrderProvider></CartProvider>
 }
