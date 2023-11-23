@@ -6,6 +6,7 @@ import CartContext from '../../../store/cart-context';
 import { Link, useNavigate } from 'react-router-dom';
 import DeleteItemModal from "../DeleteItemModal";
 import LoginContext from "../../../store/login-context";
+import ProductDetailsModal from "./ProductDetailsModal";
 
 const ProductItem = (props) => {
   const cartCtx = useContext(CartContext);
@@ -15,6 +16,7 @@ const ProductItem = (props) => {
   const price = `$${props.price.toFixed(2)}`;
   const [isProductEdited, setIsProductEdited ] = useState(false);
   const [deleteModalIsShown, setDeleteModalIsShown] = useState(false);
+    const [productDetailsModalIsShown, setProductDetailsModalIsShown] = useState(false);
   cartCtx.isInCartHandler(false);
 
     const [reloadComponent, setReloadComponent] = useState(false);
@@ -30,8 +32,16 @@ const ProductItem = (props) => {
         setDeleteModalIsShown(true);
     };
 
+    const showProductDetailsModalHandler = () => {
+        setDeleteModalIsShown(true);
+    };
+
     const hideDeleteModalHandler = () => {
         setDeleteModalIsShown(false);
+    };
+
+    const hideProductDetailsModalHandler = () => {
+        setProductDetailsModalIsShown(false);
     };
 
     const addToCartHandler = amount => {
@@ -97,10 +107,11 @@ const ProductItem = (props) => {
   return (
     <li className={classes.product}>
         {deleteModalIsShown && <DeleteItemModal id={props.id} onClose={hideDeleteModalHandler} />}
+        {productDetailsModalIsShown && <ProductDetailsModal id={props.id} onClose={hideProductDetailsModalHandler} />}
       <div>
-        <Link to={"/" + props.id}>
-        <h3>{props.name}</h3>
-        </Link>
+        {/*<Link to={"/" + props.id}>*/}
+        <h3><a  href="#" onClick={setProductDetailsModalIsShown}>{props.name}</a></h3>
+        {/*</Link>*/}
         <img src={props.image} alt={""} style={{width: "300px"}}/>
         <div className={classes.description}>{props.description}</div>
           <div className={classes.description} style={{"color": "darkslateblue", "fontWeight": "bold"}}>Category: {props.category}</div>

@@ -18,6 +18,7 @@ const EditProduct = (props) => {
 
     const [formInputsValidity, setFormInputsValidity] = useState({
         description: true,
+        detailedDescription: true,
         image: true,
         name: true,
         price: true,
@@ -26,6 +27,7 @@ const EditProduct = (props) => {
     const nameInputRef = useRef();
     const imageInputRef = useRef();
     const descriptionInputRef = useRef();
+    const detailedDescriptionInputRef = useRef();
     const priceInputRef = useRef();
     const categoryInputRef = useRef();
 
@@ -33,6 +35,7 @@ const EditProduct = (props) => {
         nameInputRef.current.value = '';
         imageInputRef.current.value = '';
         descriptionInputRef.current.value = '';
+        detailedDescriptionInputRef.current.value = '';
         priceInputRef.current.value = '';
     };
 
@@ -86,17 +89,20 @@ const EditProduct = (props) => {
         const enteredName = nameInputRef.current.value;
         const enteredImage = imageInputRef.current.value;
         const enteredDescription = descriptionInputRef.current.value;
+        const enteredDetailedDescription = detailedDescriptionInputRef.current.value;
         const enteredPrice = priceInputRef.current.value;
         const selectedCategory = categoryInputRef.current.value;
 
         const enteredNameIsValid = !isEmpty(enteredName);
         const enteredImageIsValid = !isEmpty(enteredImage) && !isNotImage(enteredImage);
         const enteredDescriptionIsValid = !isEmpty(enteredDescription);
+        const enteredDetailedDescriptionIsValid = !isEmpty(enteredDetailedDescription);
         const enteredPriceIsValid = !isEmpty(enteredPrice) && !isNotANumber(enteredPrice);
 
         setFormInputsValidity({
             name: enteredNameIsValid,
             description: enteredDescriptionIsValid,
+            detailedDescription: enteredDetailedDescriptionIsValid,
             image: enteredImageIsValid,
             price: enteredPriceIsValid,
         });
@@ -105,7 +111,7 @@ const EditProduct = (props) => {
             enteredNameIsValid &&
             enteredDescriptionIsValid &&
             enteredImageIsValid &&
-            enteredPriceIsValid;
+            enteredPriceIsValid && enteredDetailedDescriptionIsValid;
 
         if (!formIsValid) {
             return;
@@ -114,13 +120,16 @@ const EditProduct = (props) => {
         const selectedProduct = allProducts.find((product) => product.id === props.productId);
 
         if (enteredName !== selectedProduct.name || enteredDescription !== selectedProduct.description || enteredImage !== selectedProduct.image
-        || enteredPrice !== selectedProduct.price || selectedCategory !== selectedProduct.category) {
+        || enteredPrice !== selectedProduct.price ||
+            selectedCategory !== selectedProduct.category ||
+            enteredDetailedDescription !== selectedProduct.detailedDescription) {
             setIsProductEdited(true);
         }
 
         props.onConfirm({
             name: enteredName,
             description: enteredDescription,
+            detailedDescription: enteredDetailedDescription,
             image: enteredImage,
             price: parseFloat(enteredPrice),
             category: selectedCategory,
@@ -138,6 +147,9 @@ const EditProduct = (props) => {
     const descriptionControlClasses = `${classes.control} ${
         formInputsValidity.description ? '' : classes.invalid
     }`;
+    const detailedDescriptionControlClasses = `${classes.control} ${
+        formInputsValidity.detailedDescription ? '' : classes.invalid
+    }`;
     const imageControlClasses = `${classes.control} ${
         formInputsValidity.image ? '' : classes.invalid
     }`;
@@ -148,6 +160,7 @@ const EditProduct = (props) => {
     const [inputValue, setInputValue] = useState({
         name: selectedProduct ? selectedProduct.name : '',
         description: selectedProduct ? selectedProduct.description : '',
+        detailedDescription: selectedProduct ? selectedProduct.DetailedDescription : '',
         image: selectedProduct ? selectedProduct.image : '',
         price: selectedProduct ? selectedProduct.price : '',
         category: selectedProduct ? selectedProduct.category : '',
@@ -159,6 +172,7 @@ const EditProduct = (props) => {
             setInputValue({
                 name: selectedProduct.name,
                 description: selectedProduct.description,
+                detailedDescription: selectedProduct.detailedDescription,
                 image: selectedProduct.image,
                 price: selectedProduct.price,
                 category: selectedProduct.category,
@@ -214,6 +228,18 @@ const EditProduct = (props) => {
                             onChange={handleInputChange}
                         />
                         {!formInputsValidity.description && <p>Please enter a valid description!</p>}
+                    </div>
+                    <div className={detailedDescriptionControlClasses}>
+                        <label htmlFor="detailedDescription">Detailed Description</label>
+                        <input
+                            type="text"
+                            id="detailedDscription"
+                            name="detailedDescription"
+                            ref={detailedDescriptionInputRef}
+                            value={inputValue.detailedDescription}
+                            onChange={handleInputChange}
+                        />
+                        {!formInputsValidity.detailedDescription && <p>Please enter a valid detailed description!</p>}
                     </div>
                     <div className={imageControlClasses}>
                         <label htmlFor="image">Image</label>

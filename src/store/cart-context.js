@@ -9,7 +9,10 @@ const CartContext = createContext({
   totalAmount: 0,
   productCounter: 0,
   isInCartHandler: () => {},
-  isInCart: false
+  isInCart: false,
+  getProductCounterFromStorage: (counter) => {},
+  getCartFromStorage: (cart) => {},
+  getTotalAmountFromStorage: (amount) => {}
 });
 
 export default CartContext;

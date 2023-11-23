@@ -1,6 +1,7 @@
-import {useEffect, useReducer, useState} from 'react';
+import {useContext, useEffect, useReducer, useState} from 'react';
 
 import CartContext from './cart-context';
+import LoginContext from "./login-context";
 
 const defaultCartState = {
   items: [],
@@ -78,20 +79,41 @@ const CartProvider = (props) => {
   const [totalAmount, setTotalAmount] = useState(0);
   const [isInCart, setIsInCart] = useState(false);
 
-  useEffect(() => {
-    const storedCart = JSON.parse(localStorage.getItem('cart')) || [];
-    const storedProductCounter = JSON.parse(localStorage.getItem('productCounter')) || 0;
-    const storedTotalAmount = JSON.parse(localStorage.getItem('totalAmount')) || 0;
-    setCart(storedCart);
-    setProductCounter(storedProductCounter);
-    setTotalAmount(storedTotalAmount);
-  }, []);
+  // const getCartFromStorage = (storedCart) => {
+  //   setCart(storedCart);
+  // }
+  //
+  // const getProductCounterFromStorage = (storedCounter) => {
+  //   setProductCounter(storedCounter);
+  // }
+  //
+  // const getTotalAmountFromStorage = (storedAmount) => {
+  //   setTotalAmount(storedAmount);
+  // }
 
-  useEffect(() => {
-    localStorage.setItem('cart', JSON.stringify(cart));
-    localStorage.setItem('productCounter', JSON.stringify(productCounter));
-    localStorage.setItem('totalAmount', JSON.stringify(totalAmount));
-  }, [cart, productCounter, totalAmount]);
+
+  // const loginCtx = useContext(LoginContext);
+  //
+  // const user = loginCtx.loggedInUser;
+  // useEffect(() => {
+  //   const storedCart = JSON.parse(localStorage.getItem(`user-${user.email}-cart`)) || [];
+  //   const storedProductCounter = JSON.parse(localStorage.getItem(`user-${user.email}-productCounter`)) || 0;
+  //   const storedTotalAmount = JSON.parse(localStorage.getItem(`user-${user.email}-totalAmount`)) || 0;
+  //   // useEffect(() => {
+  //   //     // Save the cart in localStorage whenever it changes
+  //   //     // const storedCart = localStorage.getItem(`user-${user.email}-cart`);
+  //   //     localStorage.setItem(`user-${user.email}-cart`, JSON.stringify(cartCtx.cart));
+  //   // }, [cartCtx.cart]);
+  //   setCart(storedCart);
+  //   setProductCounter(storedProductCounter);
+  //   setTotalAmount(storedTotalAmount);
+  // }, []);
+
+  // useEffect(() => {
+  //   localStorage.setItem(`user-${user.email}-cart`, JSON.stringify(cart));
+  //   localStorage.setItem(`user-${user.email}-productCounter`, JSON.stringify(productCounter));
+  //   localStorage.setItem(`user-${user.email}-totalAmount`, JSON.stringify(totalAmount));
+  // }, [cart, productCounter, totalAmount]);
 
   const addItemToCartHandler = (item) => {
 
@@ -111,6 +133,7 @@ const CartProvider = (props) => {
 
     if (existingCartItem) {
       let updatedItem;
+      console.log("is in cart ", isInCart)
       if(isInCart){
         updatedItem = {
           ...existingCartItem,
@@ -188,6 +211,8 @@ const CartProvider = (props) => {
 
   const clearCartHandler = () => {
     setCart([]);
+    setTotalAmount(0);
+    setProductCounter(0);
   };
 
   const isInCartHandler = (bool) => {

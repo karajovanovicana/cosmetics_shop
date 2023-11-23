@@ -10,6 +10,7 @@ const AddNewProductPage = () => {
             body: JSON.stringify({
                 name: productData.name,
                 description: productData.description,
+                detailedDescription: productData.detailedDescription,
                 image: productData.image,
                 price: productData.price,
                 category: productData.category

@@ -47,6 +47,7 @@ const Header = (props) => {
                                 Home
                             </NavLink>
                         </li>
+
                         <li>
                             <NavLink
                                 to="/about"
@@ -77,20 +78,26 @@ const Header = (props) => {
                                 Assign Role
                             </NavLink>
                         </li>}
-                        {loginCtx.loggedInUser.role === "user" && loginCtx.isLoggedIn === true && <li>
-                            <span style={{"opacity": "0"}}>
-                                add new product
-                            </span>
-                        </li>}
+                        {/*{loginCtx.loggedInUser.role === "user" && loginCtx.isLoggedIn === true && <li>*/}
+                        {/*    {loginCtx.isLoggedIn && loginCtx.loggedInUser.role === "user" && <HeaderCartButton onClick={props.onShowCart} />}*/}
+                        {/*</li>}*/}
+                        {/*{loginCtx.loggedInUser.role === "user" && loginCtx.isLoggedIn === true && <li>*/}
+                        {/*    <span style={{"opacity": "0"}}>*/}
+                        {/*        add new product*/}
+                        {/*    </span>*/}
+                        {/*</li>}*/}
                         {/*<li>*/}
 
                         {/*</li>*/}
                     </ul>
                 </nav>
-                {loginCtx.isLoggedIn && loginCtx.loggedInUser.role === "user" && <HeaderCartButton onClick={props.onShowCart} />}
-                {/*{props.onShowCart && loginCtx.isLoggedIn && loginCtx.loggedInUser.role === "user" && <HeaderCartButton onClick={props.onShowCart} />}*/}
-                {/*{!props.onShowCart && loginCtx.loggedInUser.role === "user" &&*/}
-                {/*    <div style={{padding: "0.75rem 8rem"}}></div> }*/}
+                {/*{loginCtx.isLoggedIn && loginCtx.loggedInUser.role === "user" && <HeaderCartButton onClick={props.onShowCart} />}*/}
+                <ul> <li style={{"display": "inline", "marginRight": ""}}>
+                {props.onShowCart && loginCtx.isLoggedIn && loginCtx.loggedInUser.role === "user" && <HeaderCartButton onClick={props.onShowCart} />}
+                </li>
+                </ul>
+                {!props.onShowCart && loginCtx.loggedInUser.role === "user" &&
+                    <div style={{padding: "0.75rem 8rem"}}></div> }
                 {!props.onShowCart && loginCtx.loggedInUser.role === "none" &&
                     <div style={{padding: "0.75rem 8rem"}}></div> }
                 {props.onShowCart && !loginCtx.isLoggedIn && <div style={{padding: "0.75rem 8rem"}}></div> }

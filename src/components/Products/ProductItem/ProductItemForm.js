@@ -1,11 +1,13 @@
-import { useRef, useState } from 'react';
+import {useContext, useRef, useState} from 'react';
 
 import Input from '../../UI/Input';
 import classes from './ProductItemForm.module.css';
+import CartContext from "../../../store/cart-context";
 
 const ProductItemForm = (props) => {
   const [amountIsValid, setAmountIsValid] = useState(true);
   const amountInputRef = useRef();
+  // const cartCtx = useContext(CartContext);
 
   const submitHandler = (event) => {
     event.preventDefault();

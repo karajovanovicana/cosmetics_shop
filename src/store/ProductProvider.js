@@ -41,7 +41,8 @@ const ProductProvider = (props) => {
                         description: responseData[key].description,
                         price: responseData[key].price,
                         image: responseData[key].image,
-                        category: responseData[key].category
+                        category: responseData[key].category,
+                        detailedDescription: responseData[key].detailedDescription
                     });
                 }
 

@@ -1,4 +1,4 @@
-import React, { useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import CartProvider from "../../store/CartProvider";
 import Cart from "../Cart/Cart";
 import Header from "../Layout/Header";
@@ -7,6 +7,9 @@ import DeleteItemModal from "../Products/DeleteItemModal";
 import LoginProvider from "../../store/LoginProvider";
 import loginContext from "../../store/login-context";
 import Footer from "../Layout/Footer";
+import CartContext from "../../store/cart-context";
+import LoginContext from "../../store/login-context";
+// import cart from "../Cart/Cart";
 // import { database, ref } from "../../database/firebaseConfig";
 // import {onValue} from "firebase/database"
 
@@ -31,6 +34,52 @@ const HomePage = () => {
     const hideDeleteModalHandler = () => {
         setDeleteModalIsShown(false);
     };
+
+    // const cartCtx = useContext(CartContext);
+    // console.log(cartCtx
+    // )
+    // const loginCtx = useContext(LoginContext);
+    //
+    //
+    // useEffect(() => {
+    //     if(loginCtx.loggedInUser.role === "user") {
+    //         console.log("fkdfkosa",localStorage.getItem
+    //         (`${loginCtx.loggedInUser.email}cart`));
+    //     const storedCart = JSON.parse(localStorage.getItem
+    //     (`user-${loginCtx.loggedInUser.email}-cart`)) || [];
+    //     const storedProductCounter = JSON.parse(localStorage.getItem
+    //     (`user-${loginCtx.loggedInUser.email}-productCounter`)) || 0;
+    //     const storedTotalAmount = JSON.parse(localStorage.
+    //     getItem(`user-${loginCtx.loggedInUser.email}-totalAmount`)) || 0;
+    //     // useEffect(() => {
+    //     //     // Save the cart in localStorage whenever it changes
+    //     //     // const storedCart = localStorage.getItem(`user-${user.email}-cart`);
+    //     //     localStorage.setItem(`user-${user.email}-cart`, JSON.stringify(cartCtx.cart));
+    //     // }, [cartCtx.cart]);
+    //
+    //     cartCtx.getCartFromStorage(storedCart);
+    //     cartCtx.getProductCounterFromStorage(storedProductCounter);
+    //     cartCtx.getTotalAmountFromStorage(storedTotalAmount);
+    //     // setTotalAmount(storedTotalAmount);
+    //         // cartCtx.handleProductCounter(storedProductCounter);
+    //         // cartCtx.
+    //     }
+    //     else {
+    //         // cartCtx.getCartFromStorage([]);
+    //         // cartCtx.getProductCounterFromStorage(0);
+    //         // cartCtx.getTotalAmountFromStorage(0);
+    //     }
+    // }, [loginCtx.loggedInUser]);
+    //
+    // useEffect(() => {
+    //     if(loginCtx.loggedInUser.role === "user") {
+    //     localStorage.setItem(`${loginCtx.loggedInUser.email}cart`, cartCtx.cart);
+    //     console.log("kcdmnsjwdcks", cartCtx.cart)
+    //     localStorage.setItem(`user-${loginCtx.loggedInUser.email}-productCounter`, JSON.stringify(cartCtx.productCounter));
+    //     localStorage.setItem(`user-${loginCtx.loggedInUser.email}-totalAmount`, JSON.stringify(cartCtx.totalAmount)); }
+    //     else {}
+    // },  [cartCtx.cart, cartCtx.productCounter, cartCtx.totalAmount,
+    //     loginCtx.loggedInUser]);
 
     // useEffect(() => {
     //     const handleDataChange = (snapshot) => {

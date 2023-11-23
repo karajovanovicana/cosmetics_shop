@@ -23,10 +23,12 @@ function AllOrdersPage() {
 
 
     return <div> {cartIsShown && <Cart onClose={hideCartHandler} />}
-        <Header onShowCart={showCartHandler} /><AllOrders orders={orders}/>
-        <div style={{"marginTop": "657px"}}>
-            <Footer/>
-        </div></div>;
+        <Header onShowCart={showCartHandler} />
+        <AllOrders orders={orders}/>
+        {/*<div style={{"marginTop": "657px"}}>*/}
+        {/*    <Footer/>*/}
+        {/*</div>*/}
+    </div>;
 }
 
 export default AllOrdersPage;

@@ -23,6 +23,7 @@ import AssignRoleToUserPage from "./components/Pages/AssignRoleToUserPage";
 import AllOrdersPage from "./components/Pages/AllOrdersPage";
 import OrderProvider from "./store/OrderProvider";
 import CartProvider from "./store/CartProvider";
+import ChangePasswordPage from "./components/Pages/ChangePasswordPage";
 
 
 // const router = createBrowserRouter([
@@ -47,6 +48,7 @@ const router = createBrowserRouter([
             { path: '/login', element: <LoginPage />},
             { path: '/assign-role', element: <AssignRoleToUserPage />},
             { path: '/orders', element: <AllOrdersPage />},
+            { path: '/change-password', element: <ChangePasswordPage />},
         ],
     }
 ]);

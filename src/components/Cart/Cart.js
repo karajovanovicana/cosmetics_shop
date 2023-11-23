@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import Modal from '../UI/Modal';
 import CartItem from './CartItem';
 import classes from './Cart.module.css';
@@ -12,8 +12,69 @@ const Cart = (props) => {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [didSubmit, setDidSubmit] = useState(false);
     const cartCtx = useContext(CartContext);
+    const loginCtx = useContext(LoginContext);
+    const user = loginCtx.loggedInUser;
     const orderCtx = useContext(OrderContext);
-    cartCtx.isInCartHandler(true);
+    useEffect(() => {
+        cartCtx.isInCartHandler(true);
+    }, [cartCtx.isInCart])
+
+    // useEffect(() => {
+    //     // Save the cart in localStorage whenever it changes
+    //     // const storedCart = localStorage.getItem(`user-${user.email}-cart`);
+    //     localStorage.setItem(`user-${user.email}-cart`, JSON.stringify(cartCtx.cart));
+    // }, [cartCtx.cart]);
+
+    // const cartCtx = useContext(CartContext);
+    // console.log(cartCtx
+    // )
+    // const loginCtx = useContext(LoginContext);
+
+
+    // useEffect(() => {
+    //     if(loginCtx.loggedInUser.role === "user") {
+    //         const storedCart = JSON.parse(localStorage.getItem
+    //         (`${loginCtx.loggedInUser.email}cart`)) || [];
+    //         const storedProductCounter = JSON.parse(localStorage.getItem
+    //         (`user-${loginCtx.loggedInUser.email}-productCounter`)) || 0;
+    //         const storedTotalAmount = JSON.parse(localStorage.
+    //         getItem(`user-${loginCtx.loggedInUser.email}-totalAmount`)) || 0;
+    //         // useEffect(() => {
+    //         //     // Save the cart in localStorage whenever it changes
+    //         //     // const storedCart = localStorage.getItem(`user-${user.email}-cart`);
+    //         //     localStorage.setItem(`user-${user.email}-cart`, JSON.stringify(cartCtx.cart));
+    //         // }, [cartCtx.cart]);
+    //
+    //         //try {
+    //             console.log("sc",storedCart);
+    //             const storedCart1=[storedCart];
+    //             console.log("sc11",storedCart);
+    //            //cartCtx.getCartFromStorage(storedCart1);
+    //        // } catch (error) {
+    //        //     console.error('Error parsing stored data:', error);
+    //         //}
+    //         cartCtx.getProductCounterFromStorage(storedProductCounter);
+    //         cartCtx.getTotalAmountFromStorage(storedTotalAmount);
+    //         // setTotalAmount(storedTotalAmount);
+    //         // cartCtx.handleProductCounter(storedProductCounter);
+    //         // cartCtx.
+    //     }
+    //     else {
+    //         cartCtx.getCartFromStorage([]);
+    //          cartCtx.getProductCounterFromStorage(0);
+    //          cartCtx.getTotalAmountFromStorage(0);
+    //     }
+    // }, [loginCtx.loggedInUser]);
+    //
+    // useEffect(() => {
+    //
+    //         localStorage.setItem(`${loginCtx.loggedInUser.email}cart`, JSON.stringify(cartCtx.cart));
+    //         console.log("kcdmnsjwdcks", JSON.stringify(cartCtx.cart));
+    //         console.log("AAkcdmnsjwdcks", JSON.parse(JSON.stringify(cartCtx.cart)));
+    //         localStorage.setItem(`user-${loginCtx.loggedInUser.email}-productCounter`, JSON.stringify(cartCtx.productCounter));
+    //         localStorage.setItem(`user-${loginCtx.loggedInUser.email}-totalAmount`, JSON.stringify(cartCtx.totalAmount));
+    //
+    // },  [loginCtx.loggedInUser]);
 
     let totalAmount = `$${cartCtx.totalAmount.toFixed(2)}`;
     if (totalAmount.toString() === "$-0.00") {

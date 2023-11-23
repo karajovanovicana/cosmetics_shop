@@ -1,5 +1,5 @@
 import LoginForm from "../Authentication/LoginForm";
-import {useContext} from "react";
+import {useContext, useEffect} from "react";
 import LoginContext from "../../store/login-context";
 import LoginProvider from "../../store/LoginProvider";
 
@@ -18,9 +18,12 @@ function LoginPage() {
         //     }),
         // });
         loginCtx.login(userData.email, userData.password);
-
+        // const storedCart = localStorage.getItem(`user-${loginCtx.loggedInUser.email}-cart`);
+        // const cart = JSON.parse(storedCart);
+        // localStorage.setItem(`user-${loginCtx.loggedInUser.email}-cart`, JSON.stringify(cart));
 
     };
+
 
 
 
