@@ -6,6 +6,7 @@ import LoginIcon from '@mui/icons-material/Person';
 import LoginContext from "../../store/login-context";
 import LoginProvider from "../../store/LoginProvider";
 import ProfileDropdown from "../Authentication/ProfileDropdown";
+import cartContext from "../../store/cart-context";
 
 const Header = (props) => {
   // return (

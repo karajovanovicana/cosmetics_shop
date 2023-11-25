@@ -3,10 +3,12 @@ import classes from './ProfileDropdown.module.css'
 import LoginContext from "../../store/login-context";
 import {NavLink, useNavigate} from "react-router-dom";
 import OrderContext from "../../store/order-context";
+import cartContext from "../../store/cart-context";
 
 const ProfileDropdown = () => {
     const [isDropdownOpen, setDropdownOpen] = useState(false);
     const loginCtx = useContext(LoginContext);
+    const cartCtx = useContext(cartContext);
     const navigate = useNavigate();
 
     const toggleDropdown = () => {
@@ -14,6 +16,11 @@ const ProfileDropdown = () => {
     };
 
     const logoutHandler = () => {
+        if(loginCtx.loggedInUser.role === "user") {
+            localStorage.setItem(`${loginCtx.loggedInUser.email}cart`, JSON.stringify(cartCtx.cart));
+            localStorage.setItem(`user-${loginCtx.loggedInUser.email}-productCounter`, JSON.stringify(cartCtx.productCounter));
+            localStorage.setItem(`user-${loginCtx.loggedInUser.email}-totalAmount`, JSON.stringify(cartCtx.totalAmount));
+        }
         loginCtx.logout();
         navigate("/login");
     }

@@ -26,10 +26,15 @@
   align-items: flex-start;
 }
 
+.horizontalList a {
+  text-decoration: none;
+  color: white;
+}
+
 .horizontalList a:hover,
 .horizontalList a.active {
-  color: #2a2452;
-  text-decoration: underline;
+  color: #33258c;
+  text-decoration: none;
 }
 
 .horizontalList {

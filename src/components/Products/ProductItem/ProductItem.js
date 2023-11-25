@@ -110,7 +110,8 @@ const ProductItem = (props) => {
         {productDetailsModalIsShown && <ProductDetailsModal id={props.id} onClose={hideProductDetailsModalHandler} />}
       <div>
         {/*<Link to={"/" + props.id}>*/}
-        <h3><a  href="#" onClick={setProductDetailsModalIsShown}>{props.name}</a></h3>
+        <h3><a href="#" onClick={setProductDetailsModalIsShown}
+        >{props.name}</a></h3>
         {/*</Link>*/}
         <img src={props.image} alt={""} style={{width: "300px"}}/>
         <div className={classes.description}>{props.description}</div>

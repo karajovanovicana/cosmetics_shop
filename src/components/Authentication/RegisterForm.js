@@ -150,6 +150,7 @@ const RegisterForm = (props) => {
                 </div>
             </form>
             <div>Already have an account?<Link to={"/login"} style={{"margin": "0rem 0.2rem"}}>Click here to log in</Link></div>
+            <div><Link to={"/"} style={{"margin": "0rem 0.2rem"}}>Back to homepage</Link></div>
         </div>
     );
 

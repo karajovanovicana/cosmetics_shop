@@ -43,7 +43,7 @@ const router = createBrowserRouter([
             { path: '/:productId', element: <ProductDetailPage /> },
             { path: '/add', element: <AddNewProductPage /> },
             { path: 'edit/:productId', element: <EditPage /> },
-            { path: '/auth', element: <AuthenticationPage /> },
+            // { path: '/auth', element: <AuthenticationPage /> },
             { path: '/register', element: <RegisterPage />},
             { path: '/login', element: <LoginPage />},
             { path: '/assign-role', element: <AssignRoleToUserPage />},

@@ -27,13 +27,11 @@ const LoginProvider = (props) => {
         setLoggedInUser({ role: "none" });
 
 
-            if(loggedInUser.role === "user") {
-                localStorage.setItem(`${loggedInUser.email}cart`, JSON.stringify(cartCtx.cart));
-                console.log("kcdmnsjwdcks", JSON.stringify(cartCtx.cart));
-                console.log("AAkcdmnsjwdcks", JSON.parse(JSON.stringify(cartCtx.cart)));
-                localStorage.setItem(`user-${loggedInUser.email}-productCounter`, JSON.stringify(cartCtx.productCounter));
-                localStorage.setItem(`user-${loggedInUser.email}-totalAmount`, JSON.stringify(cartCtx.totalAmount));
-            }
+            // if(loggedInUser.role === "user") {
+            //     localStorage.setItem(`${loggedInUser.email}cart`, JSON.stringify(cartCtx.cart));
+            //     localStorage.setItem(`user-${loggedInUser.email}-productCounter`, JSON.stringify(cartCtx.productCounter));
+            //     localStorage.setItem(`user-${loggedInUser.email}-totalAmount`, JSON.stringify(cartCtx.totalAmount));
+            // }
     };
 
     const register = () => {
@@ -87,30 +85,27 @@ const LoginProvider = (props) => {
         setIsRoleChanged(false);
     };
 
-    useEffect(() => {
-        console.log(loggedInUser);
-        if(loggedInUser.role === "user") {
-            console.log("AAA",login.role);
-            const storedCart = JSON.parse(localStorage.getItem
-            (`${loggedInUser.email}cart`));
-            const storedProductCounter = JSON.parse(localStorage.getItem
-            (`user-${loggedInUser.email}-productCounter`));
-            const storedTotalAmount = JSON.parse(localStorage.
-            getItem(`user-${loggedInUser.email}-totalAmount`));
-
-            console.log("sc",storedCart);
-            console.log("sc11",storedCart);
-            cartCtx.getCartFromStorage(storedCart);
-            cartCtx.getProductCounterFromStorage(storedProductCounter);
-            cartCtx.getTotalAmountFromStorage(storedTotalAmount);
-
-        }
-        else {
-            cartCtx.getCartFromStorage([]);
-            cartCtx.getProductCounterFromStorage(0);
-            cartCtx.getTotalAmountFromStorage(0);
-        }
-}, [loggedInUser]); // Add this useEffect to log loggedInUser when it changes
+//     useEffect(() => {
+//             const storedCart = JSON.parse(localStorage.getItem
+//             (`${loggedInUser.email}cart`));
+//             const storedProductCounter = JSON.parse(localStorage.getItem
+//             (`user-${loggedInUser.email}-productCounter`));
+//             const storedTotalAmount = JSON.parse(localStorage.
+//             getItem(`user-${loggedInUser.email}-totalAmount`));
+//
+//             if (storedCart === undefined || storedCart === null) {
+//                 cartCtx.getCartFromStorage([]);
+//                 cartCtx.getProductCounterFromStorage(0);
+//                 cartCtx.getTotalAmountFromStorage(0);
+//             }
+//             else
+//             {
+//                 cartCtx.getCartFromStorage(storedCart);
+//                 cartCtx.getProductCounterFromStorage(storedProductCounter);
+//                 cartCtx.getTotalAmountFromStorage(storedTotalAmount);
+//             }
+//
+// }, [loggedInUser]); // Add this useEffect to log loggedInUser when it changes
 
     return (
         <LoginContext.Provider value={{ isLoggedIn, loggedInUser, login, logout, register, users, changeRoleHandler }}>

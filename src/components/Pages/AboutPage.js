@@ -38,17 +38,25 @@ const AboutPage = () => {
                 <section className={classes.summary}>
                     <h2>Makeup and sanitary products</h2>
                     <p>
+                        Step into our world of colors, textures, and endless possibilities.
+                        Our mission is to inspire and enhance your natural beauty through products that
+                        not only look good but also feel good.
+                        We look forward to being
+                        a part of your beauty routine and helping you become the best version of yourself.
+                    </p>
+                    <p>
                         Click and order your favorites from our site.
+                        Thank you for choosing our cosmetics.
                     </p>
                     <p>
-                        Address: Whatever Street, 12345, Skopje
+                        Address: Some Street, 12, Skopje
                     </p>
                     <p>
-                        Contact: cosmetics-shop@email.com, 1111111
+                        Contact: cosmetics-shop@email.com, +389 00 000 000
                     </p>
                 </section>
             </main>
-            <div style={{"marginTop": "470px"}}>
+            <div style={{"marginTop": "400px"}}>
             <Footer/>
             </div>
         </div>

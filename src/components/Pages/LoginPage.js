@@ -2,30 +2,37 @@ import LoginForm from "../Authentication/LoginForm";
 import {useContext, useEffect} from "react";
 import LoginContext from "../../store/login-context";
 import LoginProvider from "../../store/LoginProvider";
+import CartContext from "../../store/cart-context";
 
 function LoginPage() {
 
     const loginCtx = useContext(LoginContext);
+    const cartCtx = useContext(CartContext);
 
     const loginHandler = async (userData) => {
-        // await fetch('https://cosmetics-shop-328c7-default-rtdb.europe-west1.firebasedatabase.app/products.json', {
-        //     method: 'POST',
-        //     body: JSON.stringify({
-        //         name: productData.name,
-        //         description: productData.description,
-        //         image: productData.image,
-        //         price: productData.price,
-        //     }),
-        // });
+
+        const storedCart = JSON.parse(localStorage.getItem
+        (`${userData.email}cart`));
+        const storedProductCounter = JSON.parse(localStorage.getItem
+        (`user-${userData.email}-productCounter`));
+        const storedTotalAmount = JSON.parse(localStorage.
+        getItem(`user-${userData.email}-totalAmount`));
+
+        if (storedCart === undefined || storedCart === null) {
+            cartCtx.getCartFromStorage([]);
+            cartCtx.getProductCounterFromStorage(0);
+            cartCtx.getTotalAmountFromStorage(0);
+        }
+        else
+        {
+            cartCtx.getCartFromStorage(storedCart);
+            cartCtx.getProductCounterFromStorage(storedProductCounter);
+            cartCtx.getTotalAmountFromStorage(storedTotalAmount);
+        }
+
         loginCtx.login(userData.email, userData.password);
-        // const storedCart = localStorage.getItem(`user-${loginCtx.loggedInUser.email}-cart`);
-        // const cart = JSON.parse(storedCart);
-        // localStorage.setItem(`user-${loginCtx.loggedInUser.email}-cart`, JSON.stringify(cart));
 
-    };
-
-
-
+       };
 
     return <LoginForm login={loginHandler}></LoginForm>;
 }

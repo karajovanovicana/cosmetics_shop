@@ -81,6 +81,7 @@ const AllOrders = (props) => {
                 />
                 </div>
             </div>
+        <div></div>
             <table className={classes.table}>
                 <thead>
                 <tr>
@@ -109,6 +110,7 @@ const AllOrders = (props) => {
                 ))}
                 </tbody>
             </table>
+            <div style={{"height": "5rem"}}></div>
         </div>
     );
 };

@@ -17,10 +17,10 @@ const ProductDetailsModal = (props) => {
             <li className={classes.product}>
                 <div>
                     <h3>{selectedProduct.name}</h3>
-                    <img src={selectedProduct.image} alt={""} style={{width: "300px"}}/>
+                    <img src={selectedProduct.image} alt={""} style={{width: "150px"}}/>
                     <div className={classes.description}>{selectedProduct.description}</div>
                     <div className={classes.description}>{selectedProduct.detailedDescription}</div>
-                    <div className={classes.price}>{selectedProduct.price}</div>
+                    <div className={classes.price}>${selectedProduct.price}</div>
                 </div>
             </li>
         </div>

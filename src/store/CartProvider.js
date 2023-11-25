@@ -79,6 +79,9 @@ const CartProvider = (props) => {
   const [totalAmount, setTotalAmount] = useState(0);
   const [isInCart, setIsInCart] = useState(false);
 
+  useEffect(() => {
+
+  })
   const getCartFromStorage = (storedCart) => {
     setCart(storedCart);
   }
