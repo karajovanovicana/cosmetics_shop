@@ -1,5 +1,4 @@
 import {useState} from 'react';
-
 import CartContext from './cart-context';
 
 const CartProvider = (props) => {
@@ -7,6 +6,11 @@ const CartProvider = (props) => {
   const [productCounter, setProductCounter] = useState(0);
   const [totalAmount, setTotalAmount] = useState(0);
   const [isInCart, setIsInCart] = useState(false);
+  const [isItemAdded, setIsItemAdded] = useState(false);
+
+  const itemAddedHandler = (bool) => {
+    setIsItemAdded(bool);
+  }
 
   const getCartFromStorage = (storedCart) => {
     setCart(storedCart);
@@ -95,7 +99,8 @@ const CartProvider = (props) => {
   return (
       <CartContext.Provider value={{addItemToCartHandler, removeItemFromCartHandler, clearCartHandler,
         cart, totalAmount, productCounter, handleProductCounter, isInCartHandler, isInCart,
-        getCartFromStorage, getProductCounterFromStorage, getTotalAmountFromStorage}}>
+        getCartFromStorage, getProductCounterFromStorage, getTotalAmountFromStorage,
+        itemAddedHandler, isItemAdded}}>
         {props.children}
       </CartContext.Provider>
   );

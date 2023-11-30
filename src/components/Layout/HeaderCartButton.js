@@ -10,18 +10,20 @@ const HeaderCartButton = (props) => {
   const btnClasses = `${classes.button} ${btnIsHighlighted ? classes.bump : ''}`;
 
   useEffect(() => {
-    if (cartCtx.cart.length === 0) {
+    if(cartCtx.isItemAdded === true) {
+      cartCtx.itemAddedHandler(false);
+      setBtnIsHighlighted(true);
+
+      const timer = setTimeout(() => {
+        setBtnIsHighlighted(false);
+      }, 300);
+
+      return () => {
+        clearTimeout(timer);
+      };
+    } else {
       return;
     }
-    setBtnIsHighlighted(true);
-
-    const timer = setTimeout(() => {
-      setBtnIsHighlighted(false);
-    }, 300);
-
-    return () => {
-      clearTimeout(timer);
-    };
   }, [cartCtx.cart]);
 
   return (

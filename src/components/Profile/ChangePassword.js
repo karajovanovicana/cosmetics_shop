@@ -4,6 +4,7 @@ import classes from "../Products/Form.module.css";
 import {useNavigate} from "react-router-dom";
 import Header from "../Layout/Header";
 import Modal from "../UI/Modal";
+import Cart from "../Cart/Cart";
 
 
 const isEmpty = (value) => value.trim() === '';
@@ -25,6 +26,16 @@ const ChangePassword = (props) => {
     const repeatNewPasswordInputRef = useRef();
     const navigate = useNavigate();
     const [didSubmit, setDidSubmit] = useState(false);
+
+    const [cartIsShown, setCartIsShown] = useState(false);
+
+    const showCartHandler = () => {
+        setCartIsShown(true);
+    };
+
+    const hideCartHandler = () => {
+        setCartIsShown(false);
+    };
 
     const clearInputFields = () => {
         passwordInputRef.current.value = '';
@@ -103,7 +114,8 @@ const ChangePassword = (props) => {
 
     return (
         <div>
-            <Header />
+            <Header onShowCart={showCartHandler}/>
+            {cartIsShown && <Cart onClose={hideCartHandler} />}
             {didSubmit && didSubmitModalContent}
             <h1 className={classes.title}>Change Password</h1>
             <main>
