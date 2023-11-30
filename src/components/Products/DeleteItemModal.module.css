@@ -8,17 +8,6 @@
     padding: 0.5rem 7rem;
 }
 
-/*.actions button:hover,*/
-/*.actions button:active {*/
-/*    background-color: #9eb8ec;*/
-/*}*/
-
-/*.actions .submit {*/
-/*    border: 1px solid #2a2452;*/
-/*    background-color: #2a2452;*/
-/*    color: white;*/
-/*}*/
-
 .btn:hover,
 .btn:active {
     background-color: cornflowerblue;

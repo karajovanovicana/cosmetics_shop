@@ -1,10 +1,9 @@
 import {useContext, useEffect, useRef, useState} from 'react';
-
-import classes from './Checkout.module.css';
+import classes from '../Products/Form.module.css';
+import checkoutClasses from './Checkout.module.css';
 import LoginContext from "../../store/login-context";
 
 const isEmpty = (value) => value.trim() === '';
-// const isFiveChars = (value) => value.trim().length === 5;
 const isNotANumber = (value) => isNaN(value) && isNaN(parseFloat(value));
 
 const Checkout = (props) => {
@@ -69,19 +68,19 @@ const Checkout = (props) => {
         });
     };
 
-    const emailControlClasses = `${classes.control} ${
+    const emailControlClasses = `${checkoutClasses.control} ${
         formInputsValidity.email ? '' : classes.invalid
     }`;
-    const nameControlClasses = `${classes.control} ${
+    const nameControlClasses = `${checkoutClasses.control} ${
         formInputsValidity.name ? '' : classes.invalid
     }`;
-    const streetControlClasses = `${classes.control} ${
+    const streetControlClasses = `${checkoutClasses.control} ${
         formInputsValidity.street ? '' : classes.invalid
     }`;
-    const postalCodeControlClasses = `${classes.control} ${
+    const postalCodeControlClasses = `${checkoutClasses.control} ${
         formInputsValidity.postalCode ? '' : classes.invalid
     }`;
-    const cityControlClasses = `${classes.control} ${
+    const cityControlClasses = `${checkoutClasses.control} ${
         formInputsValidity.city ? '' : classes.invalid
     }`;
 
@@ -91,7 +90,6 @@ const Checkout = (props) => {
         name: user ? user.name : '',
     });
 
-    // Effect to update input values when selectedProduct changes
     useEffect(() => {
         if (user) {
             setInputValue({
@@ -101,7 +99,6 @@ const Checkout = (props) => {
         }
     }, [user]);
 
-    // Handle changes in the input fields
     const handleInputChange = (event) => {
         const { name, value } = event.target;
         setInputValue({
@@ -111,7 +108,7 @@ const Checkout = (props) => {
     };
 
     return (
-        <form className={classes.form} onSubmit={confirmHandler}>
+        <form className={checkoutClasses.form} onSubmit={confirmHandler}>
             <div className={emailControlClasses}>
                 <label htmlFor='email'>Email</label>
                 <input type='text' id='email' ref={emailInputRef} value={inputValue.email} onChange={handleInputChange}/>

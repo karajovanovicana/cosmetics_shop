@@ -1,4 +1,5 @@
-import classes from "./LoginForm.module.css";
+import classes from "../Products/Form.module.css";
+import loginClasses from "./Auth.module.css";
 import {Link, useNavigate} from "react-router-dom";
 import {useContext, useRef, useState} from "react";
 import LoginContext from "../../store/login-context";
@@ -18,14 +19,6 @@ const LoginForm = (props) => {
     const emailInputRef = useRef();
     const passwordInputRef = useRef();
     const navigate = useNavigate();
-    const doesNotExist = () => loginCtx.isLoggedIn === false;
-
-    const clearInputFields = () => {
-        emailInputRef.current.value = '';
-        passwordInputRef.current.value = '';
-    };
-
-    // let userExists = true;
 
     const confirmHandler = (event) => {
         event.preventDefault();
@@ -57,13 +50,7 @@ const LoginForm = (props) => {
             email: enteredEmail,
             password: enteredPassword,
         });
-        // clearInputFields();
-        // if(!doesNotExist()) {
             navigate("/");
-        // } else {
-
-        // }
-
     }
 
     const emailControlClasses = `${classes.control} ${
@@ -75,9 +62,8 @@ const LoginForm = (props) => {
 
 
     return (
-        <div className={classes.form}>
-            {/*<Header />*/}
-            <h1 className={classes.title}>Login</h1>
+        <div className={loginClasses.form}>
+            <h1 className={loginClasses.title}>Login</h1>
             <form onSubmit={confirmHandler}>
                 <div className={emailControlClasses}>
                     <label htmlFor='email'>Email</label>
@@ -86,17 +72,22 @@ const LoginForm = (props) => {
                 </div>
                 <div className={passwordControlClasses}>
                     <label htmlFor='password'>Password</label>
-                    <input style={{"fontSize": "0.6rem"}} type='password' id='password' ref={passwordInputRef}/>
+                    <input className={classes.passwordInput} type='password' id='password' ref={passwordInputRef}/>
                     {!formInputsValidity.password && <p>Please enter a valid password!</p>}
-                    {formInputsValidity.password && formInputsValidity.email && !formInputsValidity.userExists && <p>That combination of email and password doesn't seem to exist.</p>}
-                    {/*{!loginCtx.isLoggedIn && <p>Password or email is incorrect!!</p>}*/}
+                    {formInputsValidity.password && formInputsValidity.email && !formInputsValidity.userExists && <p>That combination of email and password doesn't seem to exist!</p>}
                 </div>
                 <div className={classes.actions}>
                     <button className={classes.submit}>Log in</button>
                 </div>
             </form>
-            <div>Don't have an account?<Link to={"/register"} style={{"margin": "0rem 0.2rem"}}>Click here to register</Link></div>
-            <div><Link to={"/"} style={{"margin": "0rem 0.2rem"}}>Back to homepage</Link></div>
+            <div>Don't have an account?
+                <Link to={"/register"} style={{"margin": "0rem 0.2rem"}}>
+                   <span className={loginClasses.link}> Click here to register </span></Link>
+            </div>
+            <div style={{"marginRight": "30rem"}}>
+            <Link to={"/"} style={{"margin": "0rem 0.2rem"}}>
+                <span className={loginClasses.link}>Back to homepage</span></Link>
+            </div>
         </div>
     );
 }

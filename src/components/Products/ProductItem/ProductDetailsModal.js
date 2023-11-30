@@ -4,12 +4,8 @@ import {useContext} from "react";
 import classes from "./ProductItem.module.css";
 
 const ProductDetailsModal = (props) => {
-
-    // const navigate = useNavigate();
     const productCtx = useContext(ProductContext);
     const selectedProduct = productCtx.products.find((product) => product.id === props.id)
-
-
 
     return <Modal>
         <div>

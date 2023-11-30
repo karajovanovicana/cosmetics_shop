@@ -1,8 +1,7 @@
 import React, {useContext, useRef, useState} from "react";
-import loginContext from "../../store/login-context";
 import LoginContext from "../../store/login-context";
-import classes from "./ChangePassword.module.css";
-import {Link, useNavigate} from "react-router-dom";
+import classes from "../Products/Form.module.css";
+import {useNavigate} from "react-router-dom";
 import Header from "../Layout/Header";
 import Modal from "../UI/Modal";
 
@@ -39,12 +38,16 @@ const ChangePassword = (props) => {
         const enteredPassword = passwordInputRef.current.value;
         const enteredNewPassword = newPasswordInputRef.current.value;
         const enteredRepeatNewPassword = repeatNewPasswordInputRef.current.value;
-        const passwordExists = loginCtx.users.some(user => user.password === enteredPassword);
+        const enteredPasswordAlreadyExists = loginCtx.users.some(user => user.password === enteredPassword);
 
-        const enteredPasswordIsValid = !isEmpty(enteredPassword) && passwordExists;
-        const enteredNewPasswordIsValid = !isEmpty(enteredNewPassword) && isLengthValid(enteredNewPassword)
-            && hasNumber(enteredNewPassword) && hasUppercase(enteredNewPassword) && hasSpecialChar(enteredNewPassword);
-        const enteredRepeatNewPasswordIsValid = !isEmpty(enteredRepeatNewPassword) && (enteredRepeatNewPassword === enteredNewPassword);
+        const enteredPasswordIsValid = !isEmpty(enteredPassword) && enteredPasswordAlreadyExists;
+        const enteredNewPasswordIsValid = !isEmpty(enteredNewPassword)
+            && isLengthValid(enteredNewPassword)
+            && hasNumber(enteredNewPassword) &&
+            hasUppercase(enteredNewPassword) && hasSpecialChar(enteredNewPassword);
+        const enteredRepeatNewPasswordIsValid = !isEmpty(enteredRepeatNewPassword)
+            && (enteredRepeatNewPassword === enteredNewPassword);
+
         setFormInputsValidity({
             password: enteredPasswordIsValid,
             newPassword: enteredNewPasswordIsValid,
@@ -54,7 +57,6 @@ const ChangePassword = (props) => {
         const formIsValid =
             enteredPasswordIsValid &&
             enteredNewPasswordIsValid && enteredRepeatNewPasswordIsValid;
-
 
         if (!formIsValid) {
             return;
@@ -68,7 +70,6 @@ const ChangePassword = (props) => {
 
         setDidSubmit(true);
         clearInputFields();
-
     }
 
     const onClose = () => {
@@ -93,7 +94,7 @@ const ChangePassword = (props) => {
             <p>Successfully changed password!</p>
             <p>Please log in with the new password</p>
             <div className={classes.actions}>
-                <button className={classes.button} onClick={onClose}>
+                <button onClick={onClose}>
                     Close
                 </button>
             </div>
@@ -101,30 +102,34 @@ const ChangePassword = (props) => {
     );
 
     return (
-        <div className={classes.form}>
+        <div>
             <Header />
             {didSubmit && didSubmitModalContent}
-            <h1>Change Password</h1>
-            <form onSubmit={confirmHandler}>
+            <h1 className={classes.title}>Change Password</h1>
+            <main>
+            <form className={classes.form} onSubmit={confirmHandler}>
                 <div className={passwordControlClasses}>
                     <label htmlFor='password'>Old Password</label>
-                    <input style={{"fontSize": "0.6rem"}} type='password' id='password' ref={passwordInputRef}  />
-                    {!formInputsValidity.password && <p>The password is incorrect</p>}
+                    <input className={classes.passwordInput} type='password' id='password' ref={passwordInputRef}  />
+                    {!formInputsValidity.password && <p>The password is incorrect!</p>}
                 </div>
                 <div className={newPasswordControlClasses}>
                     <label htmlFor='newPassword'>New Password</label>
-                    <input style={{"fontSize": "0.6rem"}} type='password' id='newPassword' ref={newPasswordInputRef}/>
-                    {!formInputsValidity.newPassword && <p>Please enter a valid new password!</p>}
+                    <input className={classes.passwordInput} type='password' id='newPassword' ref={newPasswordInputRef}/>
+                    {!formInputsValidity.newPassword &&
+                        <p>Please enter a valid new password!</p>}
                 </div>
                 <div className={repeatNewPasswordControlClasses}>
                     <label htmlFor='repeatNewPassword'>Repeat New Password</label>
-                    <input style={{"fontSize": "0.6rem"}} type='password' id='repeatNewPassword' ref={repeatNewPasswordInputRef}/>
+                    <input className={classes.passwordInput} type='password' id='repeatNewPassword'
+                           ref={repeatNewPasswordInputRef}/>
                     {!formInputsValidity.repeatNewPassword && <p>Passwords don't match!</p>}
                 </div>
                 <div className={classes.actions}>
                     <button className={classes.submit}>Change Password</button>
                 </div>
             </form>
+            </main>
         </div>
     );
 

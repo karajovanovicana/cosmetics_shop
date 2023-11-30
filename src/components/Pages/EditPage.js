@@ -1,4 +1,3 @@
-
 import EditProduct from "../Products/EditProduct";
 import {useParams} from "react-router-dom";
 import {useContext} from "react";
@@ -8,7 +7,7 @@ const EditPage = () => {
     const params = useParams();
     const productCtx = useContext(ProductContext);
     const editHandler = async (productData) => {
-        productCtx.productDeletedHandler();
+        productCtx.productEditedHandler();
         await fetch(`https://cosmetics-shop-328c7-default-rtdb.europe-west1.firebasedatabase.app/products/${params.productId}.json`, {
             method: 'PATCH',
             headers: {

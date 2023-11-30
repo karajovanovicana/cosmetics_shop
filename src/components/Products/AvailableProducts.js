@@ -9,8 +9,6 @@ const AvailableProducts = (props) => {
     const productCtx = useContext(ProductContext);
     const allProducts = productCtx.products;
 
-    const [isLoading, setIsLoading] = useState(false);
-    const [httpError, setHttpError] = useState();
     const [filterTerm, setFilterTerm] = useState('');
     const [selectedCategory, setSelectedCategory] = useState('');
 
@@ -26,22 +24,6 @@ const AvailableProducts = (props) => {
     const handleCategoryChange = (event) => {
         setSelectedCategory(event.target.value);
     };
-
-    if (isLoading) {
-        return (
-            <section className={classes.ProductsLoading}>
-                <p>Loading...</p>
-            </section>
-        );
-    }
-
-    if (httpError) {
-        return (
-            <section className={classes.ProductsError}>
-                <p>{httpError}</p>
-            </section>
-        );
-    }
 
     const productsList = filteredProducts.map((product) => (
         <ProductItem
@@ -59,8 +41,7 @@ const AvailableProducts = (props) => {
     return (
         <section className={classes.products}>
             <Card>
-                {/* Filter inputs */}
-                <div className={classes.filters}>
+                <div>
                     <input
                         className={classes.input}
                         type="text"
@@ -76,7 +57,6 @@ const AvailableProducts = (props) => {
                         <option value="">all categories</option>
                         <option value="makeup">makeup</option>
                         <option value="skincare">skincare</option>
-                        {/* Add more options based on your actual categories */}
                     </select>
                 </div>
                 <ul>{productsList}</ul>

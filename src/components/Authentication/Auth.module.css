@@ -1,0 +1,17 @@
+.title {
+    margin-left: 20rem;
+}
+
+.form {
+    margin: 2rem 20rem;
+    height: 17rem;
+}
+
+.link {
+    color: cornflowerblue;
+}
+
+.link:hover, .link:active {
+    color: darkslateblue;
+    text-decoration: underline;
+}

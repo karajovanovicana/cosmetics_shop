@@ -1,4 +1,3 @@
-// Slideshow.js
 import React, { useState, useEffect } from 'react';
 import classes from './Slideshow.module.css';
 

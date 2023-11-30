@@ -56,7 +56,7 @@ const ProductProvider = (props) => {
             setIsProductAdded(false);
         };
 
-        fetchAllProductsHandler(); // Call the function to fetch and load products.
+        fetchAllProductsHandler().then(() => {});
     }, [isProductEdited, isProductDeleted, isProductAdded]);
 
     return (

@@ -3,7 +3,7 @@ import React, {useContext, useEffect, useState} from 'react';
 import ProductItemForm from './ProductItemForm';
 import classes from './ProductItem.module.css';
 import CartContext from '../../../store/cart-context';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import DeleteItemModal from "../DeleteItemModal";
 import LoginContext from "../../../store/login-context";
 import ProductDetailsModal from "./ProductDetailsModal";
@@ -11,7 +11,7 @@ import ProductDetailsModal from "./ProductDetailsModal";
 const ProductItem = (props) => {
   const cartCtx = useContext(CartContext);
   const loginCtx = useContext(LoginContext);
-  const navigate = useNavigate(); // Get the history object
+  const navigate = useNavigate();
 
   const price = `$${props.price.toFixed(2)}`;
   const [isProductEdited, setIsProductEdited ] = useState(false);
@@ -26,14 +26,14 @@ const ProductItem = (props) => {
             // Reload the component by toggling reloadComponent state
             setReloadComponent((prev) => !prev);
         }
-    }, [isProductEdited]);
+    }, [isProductEdited, reloadComponent]);
 
     const showDeleteModalHandler = () => {
         setDeleteModalIsShown(true);
     };
 
     const showProductDetailsModalHandler = () => {
-        setDeleteModalIsShown(true);
+        setProductDetailsModalIsShown(true);
     };
 
     const hideDeleteModalHandler = () => {
@@ -51,7 +51,6 @@ const ProductItem = (props) => {
             id: props.id,
             name: props.name,
             amount: amount,
-            // amount: cartCtx.productCounter,
             price: props.price,
             image: props.image
         });
@@ -69,7 +68,8 @@ const ProductItem = (props) => {
             const responseData = await response.json();
             const product = {id: responseData.key, name: responseData.name,
             description: responseData.description, price: responseData.price, image: responseData.image};
-            if (product.name !== props.name || product.description !==props.description || product.price !==props.price || product.image !==props.image) {
+            if (product.name !== props.name || product.description !==props.description
+                || product.price !==props.price || product.image !==props.image) {
                 setIsProductEdited(true);
             }
             console.log(isProductEdited)
@@ -82,35 +82,13 @@ const ProductItem = (props) => {
             };
 
 
-
-    const deleteItemHandler = async () => {
-        const url = "https://cosmetics-shop-328c7-default-rtdb.europe-west1.firebasedatabase.app/products/" + props.id + ".json"
-
-        try {
-            const response = await fetch(url, {
-                method: 'DELETE',
-            });
-
-            if (!response.ok) {
-                throw new Error('Failed to delete the item.');
-            }
-            window.location.reload();
-
-
-        } catch (error) {
-            // Handle the error, e.g., show an error message
-            console.error('Error deleting item:', error);
-        }
-
-    };
-
   return (
     <li className={classes.product}>
         {deleteModalIsShown && <DeleteItemModal id={props.id} onClose={hideDeleteModalHandler} />}
         {productDetailsModalIsShown && <ProductDetailsModal id={props.id} onClose={hideProductDetailsModalHandler} />}
       <div>
         {/*<Link to={"/" + props.id}>*/}
-        <h3><a href="#" onClick={setProductDetailsModalIsShown}
+        <h3><a href="#" onClick={showProductDetailsModalHandler}
         >{props.name}</a></h3>
         {/*</Link>*/}
         <img src={props.image} alt={""} style={{width: "300px"}}/>
@@ -120,7 +98,7 @@ const ProductItem = (props) => {
       </div>
         { loginCtx.isLoggedIn === true && loginCtx.loggedInUser.role === "admin" && <div style={{margin: "2.1rem"}}>
             <button onClick={editItemHandler} style={{margin: "0.1rem "}} className={classes.btn}>Edit</button>
-            <button onClick={setDeleteModalIsShown} className={classes.btn}>Delete</button>
+            <button onClick={showDeleteModalHandler} className={classes.btn}>Delete</button>
         </div>}
       <div>
           { loginCtx.isLoggedIn === true && loginCtx.loggedInUser.role === "user" &&

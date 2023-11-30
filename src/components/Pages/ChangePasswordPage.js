@@ -1,8 +1,6 @@
-import LoginForm from "../Authentication/LoginForm";
 import {useContext} from "react";
 import LoginContext from "../../store/login-context";
-import LoginProvider from "../../store/LoginProvider";
-import ChangePassword from "../Authentication/ChangePassword";
+import ChangePassword from "../Profile/ChangePassword";
 
 function ChangePasswordPage() {
 
@@ -19,11 +17,7 @@ function ChangePasswordPage() {
                 password: userData.newPassword
             }),
         });
-
-
     };
-
-
 
     return <ChangePassword passwordChange={passwordHandler}></ChangePassword>;
 }

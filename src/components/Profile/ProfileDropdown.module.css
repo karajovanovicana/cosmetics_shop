@@ -1,5 +1,3 @@
-/* styles.module.css */
-
 .profileDropdown {
     position: relative;
     display: inline-block;
@@ -19,12 +17,6 @@
     background: #2a2452;
 }
 
-/*.profilePicture {*/
-/*    width: 30px;*/
-/*    height: 30px;*/
-/*    border-radius: 50%;*/
-/*    margin-right: 10px;*/
-/*}*/
 
 .profileName {
     font-weight: bold;
@@ -49,7 +41,6 @@
     position: absolute;
     top: 100%;
     right: 0;
-    /*background-color: #fff;*/
     justify-content: center;
     background-color: darkslateblue;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -60,8 +51,6 @@
 
 .dropdownContent ul {
     list-style: none;
-    /*padding: 0;*/
-    /*margin: 0;*/
 }
 
 
@@ -73,8 +62,7 @@
     cursor: pointer;
     border-bottom: 1px solid #ccc;
     width: 10rem;
-    display: block; /* Display list items as blocks to make them vertical */
-    /*align-items: center;*/
+    display: block;
 }
 
 .dropdownContent li:hover {
@@ -85,7 +73,6 @@
     border-bottom: none;
 }
 
-/* Show the dropdown content when the dropdown is open */
 .profileDropdown:hover .dropdownContent {
     display: block;
 }

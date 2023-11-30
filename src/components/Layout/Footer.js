@@ -1,5 +1,3 @@
-// Footer.js
-
 import React from 'react';
 import classes from './Footer.module.css';
 

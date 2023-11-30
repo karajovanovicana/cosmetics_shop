@@ -1,18 +1,15 @@
-import AllOrders from "../Authentication/AllOrders";
+import AllOrders from "../Profile/AllOrders";
 import React, {useContext, useState} from "react";
 import OrderContext from "../../store/order-context";
 import Header from "../Layout/Header";
 import Cart from "../Cart/Cart";
-import DeleteItemModal from "../Products/DeleteItemModal";
-import Footer from "../Layout/Footer";
+
 
 
 function AllOrdersPage() {
-
    const ordersCtx = useContext(OrderContext);
    const orders = ordersCtx.orders;
     const [cartIsShown, setCartIsShown] = useState(false);
-    const [deleteModalIsShown, setDeleteModalIsShown] = useState(false);
     const showCartHandler = () => {
         setCartIsShown(true);
     };
@@ -22,13 +19,11 @@ function AllOrdersPage() {
     };
 
 
-    return <div> {cartIsShown && <Cart onClose={hideCartHandler} />}
+    return <div>
+        {cartIsShown && <Cart onClose={hideCartHandler} />}
         <Header onShowCart={showCartHandler} />
         <AllOrders orders={orders}/>
-        {/*<div style={{"marginTop": "657px"}}>*/}
-        {/*    <Footer/>*/}
-        {/*</div>*/}
-    </div>;
+    </div>
 }
 
 export default AllOrdersPage;

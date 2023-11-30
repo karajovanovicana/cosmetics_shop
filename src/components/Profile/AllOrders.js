@@ -1,8 +1,6 @@
-import Header from "../Layout/Header";
 import classes from "./AllOrders.module.css";
 import { useContext, useState } from "react";
 import LoginContext from "../../store/login-context";
-// import classes from "./AddNewProduct.module.css";
 
 const AllOrders = (props) => {
     const loginCtx = useContext(LoginContext);
@@ -24,8 +22,9 @@ const AllOrders = (props) => {
 
     const filteredOrders = props.orders.filter((order) => {
         const orderDate = new Date(order.date);
-        const startFilter = !startDate || orderDate >= new Date(startDate);
-        const endFilter = !endDate || orderDate <= new Date(endDate);
+        const startFilter = !startDate || orderDate >= new Date(`${startDate}T00:00:00`);
+        const endFilter = !endDate || orderDate <= new Date(`${endDate}T23:59:59`);
+
         const emailFilter =
             loginCtx.loggedInUser.role === "admin" &&
             (!filterEmail || order.user.email.includes(filterEmail));
@@ -40,7 +39,7 @@ const AllOrders = (props) => {
     });
 
     return (
-        <div style={{ margin: "-10rem 5rem" }}>
+        <div className={classes.orders}>
             {loginCtx.loggedInUser.role === "user" && <h2>Order List</h2>}
             {loginCtx.loggedInUser.role === "admin" && (
                 <h2>All User Orders List</h2>
@@ -55,7 +54,6 @@ const AllOrders = (props) => {
                             value={filterEmail}
                             onChange={handleEmailChange}
                             placeholder="Search by email"
-                            style={{"width": "15rem", "height": "2rem"}}
                         />
                     </div>
                 )}
@@ -66,7 +64,6 @@ const AllOrders = (props) => {
                     id="startDate"
                     value={startDate}
                     onChange={handleStartDateChange}
-                    style={{"width": "13rem", "height": "2rem"}}
                 />
                 </div>
                 <div></div>
@@ -77,7 +74,6 @@ const AllOrders = (props) => {
                     id="endDate"
                     value={endDate}
                     onChange={handleEndDateChange}
-                    style={{"width": "13rem", "height": "2rem"}}
                 />
                 </div>
             </div>
@@ -110,7 +106,7 @@ const AllOrders = (props) => {
                 ))}
                 </tbody>
             </table>
-            <div style={{"height": "5rem"}}></div>
+            <div className={classes.space}></div>
         </div>
     );
 };

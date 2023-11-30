@@ -40,7 +40,7 @@ const OrderProvider = (props) => {
             setIsOrderAdded(false);
         };
 
-        fetchAllOrdersHandler(); // Call the function to fetch and load products.
+        fetchAllOrdersHandler().then(() => {});
     }, [isOrderAdded]);
 
     return (

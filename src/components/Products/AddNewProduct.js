@@ -1,5 +1,5 @@
 import {useRef, useState} from "react";
-import classes from "./AddNewProduct.module.css";
+import classes from "./Form.module.css";
 import Header from "../Layout/Header";
 import {useNavigate} from "react-router-dom";
 
@@ -25,13 +25,6 @@ const AddNewProduct = (props) => {
     const categoryInputRef = useRef();
     const navigate = useNavigate();
 
-    const clearInputFields = () => {
-        nameInputRef.current.value = '';
-        imageInputRef.current.value = '';
-        descriptionInputRef.current.value = '';
-        detailedDescriptionInputRef.current.value = '';
-        priceInputRef.current.value = '';
-    };
 
     const cancelHandler = () => {
         navigate("/");
@@ -56,7 +49,7 @@ const AddNewProduct = (props) => {
         setFormInputsValidity({
             name: enteredNameIsValid,
             description: enteredDescriptionIsValid,
-            detailedDescription: enteredDetailedDescription,
+            detailedDescription: enteredDetailedDescriptionIsValid,
             image: enteredImageIsValid,
             price: enteredPriceIsValid,
         });
@@ -80,7 +73,6 @@ const AddNewProduct = (props) => {
             category: selectedCategory
         });
 
-        // clearInputFields();
         navigate("/");
     };
 

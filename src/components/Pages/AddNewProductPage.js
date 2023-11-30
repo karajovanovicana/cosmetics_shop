@@ -1,5 +1,5 @@
 import AddNewProduct from "../Products/AddNewProduct";
-import {useContext, useState} from "react";
+import {useContext} from "react";
 import ProductContext from "../../store/product-context";
 
 const AddNewProductPage = () => {

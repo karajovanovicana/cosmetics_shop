@@ -9,8 +9,8 @@
   list-style: none;
   margin: 0;
   padding: 0;
-  overflow: scroll; /* Add this line to enable scrolling */
-  max-height: 60rem;
+  overflow: scroll;
+  max-height: 61rem;
 }
 
 .input {
@@ -20,7 +20,6 @@
 }
 
 .select {
-  /*font: inherit;*/
   border: 1px solid #ccc;
   background-color: white;
   border-radius: 4px;
@@ -36,7 +35,7 @@
 
 .input:focus {
   border: 2px solid darkslateblue;
-  outline: none; /* This removes the default focus outline (if you don't want it) */
+  outline: none;
 }
 
 

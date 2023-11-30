@@ -1,12 +1,11 @@
 .title {
-    /*margin-top: 0rem;*/
+    margin-top: -8rem;
     margin-left: 20rem;
 }
 
 .form {
     margin: 2rem 20rem;
     height: 17rem;
-    /*overflow: auto;*/
 }
 
 .control {
@@ -23,6 +22,20 @@
 .control input {
     font: inherit;
     border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 30rem;
+    height: 2rem;
+    max-width: 100%;
+}
+
+.control .passwordInput {
+    font-size: 0.6rem;
+}
+
+.control select {
+    font: inherit;
+    border: 1px solid #ccc;
+    background-color: white;
     border-radius: 4px;
     width: 30rem;
     height: 2rem;

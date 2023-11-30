@@ -1,12 +1,9 @@
 import Modal from "../UI/Modal";
 import classes from "./DeleteItemModal.module.css";
-import {useNavigate} from "react-router-dom";
 import ProductContext from "../../store/product-context";
 import {useContext} from "react";
 
 const DeleteItemModal = (props) => {
-
-    const navigate = useNavigate();
     const productCtx = useContext(ProductContext);
 
     const deleteItemHandler = async () => {
@@ -24,7 +21,6 @@ const DeleteItemModal = (props) => {
 
 
         } catch (error) {
-            // Handle the error, e.g., show an error message
             console.error('Error deleting item:', error);
         }
         productCtx.productDeletedHandler();

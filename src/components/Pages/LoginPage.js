@@ -1,7 +1,6 @@
 import LoginForm from "../Authentication/LoginForm";
-import {useContext, useEffect} from "react";
+import {useContext} from "react";
 import LoginContext from "../../store/login-context";
-import LoginProvider from "../../store/LoginProvider";
 import CartContext from "../../store/cart-context";
 
 function LoginPage() {
@@ -31,7 +30,6 @@ function LoginPage() {
         }
 
         loginCtx.login(userData.email, userData.password);
-
        };
 
     return <LoginForm login={loginHandler}></LoginForm>;

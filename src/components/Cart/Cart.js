@@ -13,49 +13,10 @@ const Cart = (props) => {
     const [didSubmit, setDidSubmit] = useState(false);
     const cartCtx = useContext(CartContext);
     const loginCtx = useContext(LoginContext);
-    const user = loginCtx.loggedInUser;
     const orderCtx = useContext(OrderContext);
     useEffect(() => {
         cartCtx.isInCartHandler(true);
     }, [cartCtx.isInCart])
-
-    // useEffect(() => {
-    //     if(loginCtx.loggedInUser.role === "user") {
-    //         const storedCart = JSON.parse(localStorage.getItem
-    //         (`${loginCtx.loggedInUser.email}cart`));
-    //         const storedProductCounter = JSON.parse(localStorage.getItem
-    //         (`user-${loginCtx.loggedInUser.email}-productCounter`));
-    //         const storedTotalAmount = JSON.parse(localStorage.
-    //         getItem(`user-${loginCtx.loggedInUser.email}-totalAmount`));
-    //
-    //        console.log("sc",storedCart);
-    //        console.log("sc11",storedCart);
-    //        cartCtx.getCartFromStorage(storedCart);
-    //        cartCtx.getProductCounterFromStorage(storedProductCounter);
-    //        cartCtx.getTotalAmountFromStorage(storedTotalAmount);
-    //
-    //         localStorage.setItem(`${loginCtx.loggedInUser.email}cart`, JSON.stringify(cartCtx.cart));
-    //         console.log("kcdmnsjwdcks", JSON.stringify(cartCtx.cart));
-    //         console.log("AAkcdmnsjwdcks", JSON.parse(JSON.stringify(cartCtx.cart)));
-    //         localStorage.setItem(`user-${loginCtx.loggedInUser.email}-productCounter`, JSON.stringify(cartCtx.productCounter));
-    //         localStorage.setItem(`user-${loginCtx.loggedInUser.email}-totalAmount`, JSON.stringify(cartCtx.totalAmount));
-    //     }
-    //     else {
-    //         cartCtx.getCartFromStorage([]);
-    //         cartCtx.getProductCounterFromStorage(0);
-    //         cartCtx.getTotalAmountFromStorage(0);
-    //     }
-    // }, [loginCtx.loggedInUser]);
-
-    // useEffect(() => {
-    //     if(loginCtx.loggedInUser.role === "user") {
-    //         localStorage.setItem(`${loginCtx.loggedInUser.email}cart`, JSON.stringify(cartCtx.cart));
-    //         console.log("kcdmnsjwdcks", JSON.stringify(cartCtx.cart));
-    //         console.log("AAkcdmnsjwdcks", JSON.parse(JSON.stringify(cartCtx.cart)));
-    //         localStorage.setItem(`user-${loginCtx.loggedInUser.email}-productCounter`, JSON.stringify(cartCtx.productCounter));
-    //         localStorage.setItem(`user-${loginCtx.loggedInUser.email}-totalAmount`, JSON.stringify(cartCtx.totalAmount));
-    //     }
-    // },  [loginCtx.loggedInUser]);
 
     let totalAmount = `$${cartCtx.totalAmount.toFixed(2)}`;
     if (totalAmount.toString() === "$-0.00") {
@@ -65,7 +26,6 @@ const Cart = (props) => {
 
     const cartItemRemoveHandler = (id) => {
         cartCtx.removeItemFromCartHandler(id);
-        // console.log(totalAmount.trim().toString())
     };
 
     const cartItemAddHandler = (item) => {

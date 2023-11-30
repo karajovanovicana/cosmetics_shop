@@ -7,7 +7,7 @@ import makeupImage from '../../assets/makeup.jpg';
 import Slideshow from "../UI/Slideshow";
 
 const ProductsSummary = () => {
-    const slideshowImages = [cosmeticsImage, skinCareImage, makeupImage]; // Add more images as needed
+    const slideshowImages = [cosmeticsImage, skinCareImage, makeupImage];
 
     return (
         <section className={classes.summary}>

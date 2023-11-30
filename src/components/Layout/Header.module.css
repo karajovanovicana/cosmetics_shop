@@ -38,13 +38,13 @@
 }
 
 .horizontalList {
-  list-style: none; /* Remove the default list bullet/number */
-  padding: 0; /* Remove default list padding */
+  list-style: none;
+  padding: 0;
 }
 
 .horizontalList li {
-  display: inline; /* Display list items horizontally */
-  margin-right: 50px; /* Add some spacing between list items */
+  display: inline;
+  margin-right: 50px;
   font-size: 25px;
 }
 
@@ -70,10 +70,6 @@
   border: none;
   background-color: darkslateblue;
   color: white;
-  /*padding: 0.5rem 1rem;*/
-  /*padding-left: 1rem;*/
-  /*padding-right: 1rem;*/
-  /*padding-bottom: 1rem;*/
   padding: 1rem 1rem;
   margin-top: 3.5rem;
   display: flex;

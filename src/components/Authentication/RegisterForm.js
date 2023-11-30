@@ -1,9 +1,9 @@
 import {useContext, useRef, useState} from "react";
 import {Link, useNavigate} from "react-router-dom";
-import Header from "../Layout/Header";
-import classes from "./RegisterForm.module.css";
+import classes from "../Products/Form.module.css";
+import registerClasses from "./Auth.module.css";
 import LoginContext from "../../store/login-context";
-
+import loginClasses from "./Auth.module.css";
 
 
 const isEmpty = (value) => value.trim() === '';
@@ -16,13 +16,6 @@ const hasSpecialChar = (value) => /[!@#$%^&*(),.?":{}|<>]/.test(value);
 
 const isEmail = (value) => value.includes("@") && value.endsWith(".com");
 const RegisterForm = (props) => {
-    const [formData, setFormData] = useState({
-        name: '',
-        surname: '',
-        email: '',
-        password: '',
-        repeatPassword: ''
-    });
 
     const nameInputRef = useRef();
     const surnameInputRef = useRef();
@@ -39,13 +32,6 @@ const RegisterForm = (props) => {
         password: true,
         repeatPassword: true,
     });
-
-    // const clearInputFields = () => {
-    //     nameInputRef.current.value = '';
-    //     surnameInputRef.current.value = '';
-    //     emailInputRef.current.value = '';
-    //     passwordInputRef.current.value = '';
-    // };
 
     const registerHandler = (event) => {
         event.preventDefault();
@@ -115,9 +101,8 @@ const RegisterForm = (props) => {
     }`;
 
     return (
-        <div className={classes.form}>
-            {/*<Header />*/}
-            <h1 className={classes.title}>Registration</h1>
+        <div className={registerClasses.form}>
+            <h1 className={registerClasses.title}>Registration</h1>
             <form onSubmit={registerHandler}>
                 <div className={nameControlClasses}>
                     <label htmlFor='name'>Name</label>
@@ -149,8 +134,14 @@ const RegisterForm = (props) => {
                 <button className={classes.submit}>Register</button>
                 </div>
             </form>
-            <div>Already have an account?<Link to={"/login"} style={{"margin": "0rem 0.2rem"}}>Click here to log in</Link></div>
-            <div><Link to={"/"} style={{"margin": "0rem 0.2rem"}}>Back to homepage</Link></div>
+            <div>Don't have an account?
+                <Link to={"/login"} style={{"margin": "0rem 0.2rem"}}>
+                    <span className={loginClasses.link}> Click here to log in </span></Link>
+            </div>
+            <div style={{"marginRight": "30rem"}}>
+                <Link to={"/"} style={{"margin": "0rem 0.2rem"}}>
+                    <span className={loginClasses.link}>Back to homepage</span></Link>
+            </div>
         </div>
     );
 
