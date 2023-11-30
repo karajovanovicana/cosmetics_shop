@@ -85,7 +85,7 @@ const AllOrders = (props) => {
                     <th>Date</th>
                     <th>Ordered Items</th>
                     <th>Total amount</th>
-                    <th>User Email</th>
+                    {loginCtx.loggedInUser.role === "admin" &&  <th>User Email</th> }
                 </tr>
                 </thead>
                 <tbody>
@@ -101,7 +101,7 @@ const AllOrders = (props) => {
                             ))}
                         </td>
                         <td>{order.user.totalAmount}</td>
-                        <td>{order.user.email}</td>
+                        {loginCtx.loggedInUser.role === "admin" &&   <td>{order.user.email}</td> }
                     </tr>
                 ))}
                 </tbody>
