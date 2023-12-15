@@ -7,7 +7,7 @@ const ProductDetailsModal = (props) => {
     const productCtx = useContext(ProductContext);
     const selectedProduct = productCtx.products.find((product) => product.id === props.id)
 
-    return <Modal>
+    return <Modal onClose={props.onClose}>
         <div>
             <h1>Product Details</h1>
             <li className={classes.product}>

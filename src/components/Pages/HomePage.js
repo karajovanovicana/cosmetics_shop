@@ -5,7 +5,7 @@ import Products from "../Products/Products";
 import DeleteItemModal from "../Products/DeleteItemModal";
 import Footer from "../Layout/Footer";
 
-const HomePage = () => {
+function HomePage() {
     const [cartIsShown, setCartIsShown] = useState(false);
     const [deleteModalIsShown, setDeleteModalIsShown] = useState(false);
 

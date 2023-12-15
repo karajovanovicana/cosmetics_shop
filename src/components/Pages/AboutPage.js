@@ -4,7 +4,7 @@ import React, {useState} from "react";
 import classes from "../Products/ProductsSummary.module.css";
 import Footer from "../Layout/Footer";
 
-const AboutPage = () => {
+function AboutPage() {
 
     const [cartIsShown, setCartIsShown] = useState(false);
 

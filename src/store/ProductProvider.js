@@ -23,7 +23,8 @@ const ProductProvider = (props) => {
         const fetchAllProductsHandler = async () => {
             try {
                 const response = await fetch(
-                    'https://cosmetics-shop-328c7-default-rtdb.europe-west1.firebasedatabase.app/products.json'
+                    'https://cosmetics-shop-328c7-default-rtdb' +
+                    '.europe-west1.firebasedatabase.app/products.json'
                 );
 
                 if (!response.ok) {

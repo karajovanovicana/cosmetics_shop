@@ -8,7 +8,8 @@ const DeleteItemModal = (props) => {
 
     const deleteItemHandler = async () => {
 
-        const url = "https://cosmetics-shop-328c7-default-rtdb.europe-west1.firebasedatabase.app/products/" + props.id + ".json"
+        const url = "https://cosmetics-shop-328c7-default-rtdb.europe-west1" +
+            ".firebasedatabase.app/products/" + props.id + ".json"
 
         try {
             const response = await fetch(url, {
@@ -26,7 +27,8 @@ const DeleteItemModal = (props) => {
         productCtx.productDeletedHandler();
     };
 
-    return <Modal>
+
+    return <Modal onClose={props.onClose}>
         <div style={{"fontSize": "1.6rem"}}>Are you sure you want to delete this item?</div>
         <button className={classes.btn} onClick={deleteItemHandler}>Yes, I'm sure</button>
         <button className={classes.btn} onClick={props.onClose}>Cancel</button>

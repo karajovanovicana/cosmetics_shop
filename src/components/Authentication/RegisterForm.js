@@ -121,8 +121,11 @@ const RegisterForm = (props) => {
                 </div>
                 <div className={passwordControlClasses}>
                     <label htmlFor='password'>Password</label>
-                    <input type='password' id='password' ref={passwordInputRef} style={{"fontSize": "0.6rem"}} />
-                    {!formInputsValidity.password && <p>Please enter a valid password! (password must be at least 6 characters long, contain at least
+                    <input type='password' id='password' ref={passwordInputRef}
+                           style={{"fontSize": "0.6rem"}} />
+                    {!formInputsValidity.password &&
+                        <p>Please enter a valid password! (password must be at least 6 characters long,
+                            contain at least
                         one number, one special character and one uppercase letter)</p>}
                 </div>
                 <div className={repeatPasswordControlClasses}>

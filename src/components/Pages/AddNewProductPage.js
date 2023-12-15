@@ -2,10 +2,11 @@ import AddNewProduct from "../Products/AddNewProduct";
 import {useContext} from "react";
 import ProductContext from "../../store/product-context";
 
-const AddNewProductPage = () => {
+function AddNewProductPage() {
     const productCtx = useContext(ProductContext);
     const addProductHandler = async (productData) => {
-        await fetch('https://cosmetics-shop-328c7-default-rtdb.europe-west1.firebasedatabase.app/products.json', {
+        await fetch('https://cosmetics-shop-328c7-default-rtdb.europe-west1' +
+            '.firebasedatabase.app/products.json', {
             method: 'POST',
             body: JSON.stringify({
                 name: productData.name,

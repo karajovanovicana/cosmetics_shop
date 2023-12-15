@@ -3,7 +3,7 @@ import {useParams} from "react-router-dom";
 import {useContext} from "react";
 import ProductContext from "../../store/product-context";
 
-const EditPage = () => {
+function EditPage() {
     const params = useParams();
     const productCtx = useContext(ProductContext);
     const editHandler = async (productData) => {

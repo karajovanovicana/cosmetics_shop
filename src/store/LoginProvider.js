@@ -13,7 +13,8 @@ const LoginProvider = (props) => {
 
         if (user) {
             setIsLoggedIn(true);
-            setLoggedInUser({ email: user.email, name:user.name, password: user.password, role: user.userRole });
+            setLoggedInUser({ email: user.email, name:user.name, password:
+                user.password, role: user.userRole });
         }
     };
 

@@ -23,7 +23,6 @@ const ProductItem = (props) => {
 
     useEffect(() => {
         if (isProductEdited) {
-            // Reload the component by toggling reloadComponent state
             setReloadComponent((prev) => !prev);
         }
     }, [isProductEdited, reloadComponent]);
@@ -45,7 +44,6 @@ const ProductItem = (props) => {
     };
 
     const addToCartHandler = amount => {
-        // cartCtx.isInCartHandler(false);
         cartCtx.handleProductCounter(amount);
         cartCtx.addItemToCartHandler({
             id: props.id,
@@ -57,7 +55,6 @@ const ProductItem = (props) => {
     };
 
     const editItemHandler = async () => {
-        // Navigate to the "/add" page and forward the product as a prop
         navigate("/edit/" + props.id);
         const url = "https://cosmetics-shop-328c7-default-rtdb.europe-west1.firebasedatabase.app/products/" + props.id + ".json"
         try {
@@ -75,10 +72,8 @@ const ProductItem = (props) => {
             console.log(isProductEdited)
 
         } catch (error) {
-            // Handle the error, e.g., show an error message
             console.error('Error finding item', error);
         }
-
             };
 
 
@@ -87,10 +82,8 @@ const ProductItem = (props) => {
         {deleteModalIsShown && <DeleteItemModal id={props.id} onClose={hideDeleteModalHandler} />}
         {productDetailsModalIsShown && <ProductDetailsModal id={props.id} onClose={hideProductDetailsModalHandler} />}
       <div>
-        {/*<Link to={"/" + props.id}>*/}
         <h3><a href="#" onClick={showProductDetailsModalHandler}
         >{props.name}</a></h3>
-        {/*</Link>*/}
         <img src={props.image} alt={""} style={{width: "300px"}}/>
         <div className={classes.description}>{props.description}</div>
           <div className={classes.description} style={{"color": "darkslateblue", "fontWeight": "bold"}}>Category: {props.category}</div>

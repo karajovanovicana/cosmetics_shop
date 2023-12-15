@@ -3,7 +3,7 @@ import Header from "../Layout/Header";
 import {useContext, useRef} from "react";
 import LoginContext from "../../store/login-context";
 
-const AssignRoleToUser = (props) => {
+function AssignRoleToUser(props) {
 
     const loginCtx = useContext(LoginContext);
     const users = loginCtx.users;
