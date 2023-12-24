@@ -1,9 +1,10 @@
-import {useContext, useRef, useState} from "react";
+import React, {useContext, useRef, useState} from "react";
 import {Link, useNavigate} from "react-router-dom";
 import classes from "../Products/Form.module.css";
 import registerClasses from "./Auth.module.css";
 import LoginContext from "../../store/login-context";
 import loginClasses from "./Auth.module.css";
+import Modal from "../UI/Modal";
 
 
 const isEmpty = (value) => value.trim() === '';
@@ -14,7 +15,18 @@ const hasUppercase = (value) => /[A-Z]/.test(value);
 
 const hasSpecialChar = (value) => /[!@#$%^&*(),.?":{}|<>]/.test(value);
 
-const isEmail = (value) => value.includes("@") && value.endsWith(".com");
+const isEmail = (value)=> /\S+@\S+\.\S+/.test(value);
+
+const doesEmailAlreadyExist = (value, users) => {
+    let userAlreadyExists = false;
+    for (const user of users) {
+        if (user.email === value) {
+            userAlreadyExists = true;
+            break;
+        }
+    }
+    return userAlreadyExists;
+}
 const RegisterForm = (props) => {
 
     const nameInputRef = useRef();
@@ -24,6 +36,7 @@ const RegisterForm = (props) => {
     const repeatPasswordInputRef = useRef();
     const navigate = useNavigate();
     const loginCtx = useContext(LoginContext);
+    const [didRegister, setDidRegister] = useState(false);
 
     const [formInputsValidity, setFormInputsValidity] = useState({
         name: true,
@@ -31,6 +44,7 @@ const RegisterForm = (props) => {
         email: true,
         password: true,
         repeatPassword: true,
+        emailNotInUse: true
     });
 
     const registerHandler = (event) => {
@@ -50,6 +64,7 @@ const RegisterForm = (props) => {
         const enteredNameIsValid = !isEmpty(enteredName);
         const enteredSurnameIsValid = !isEmpty(enteredSurname);
         const enteredEmailIsValid = !isEmpty(enteredEmail) && isEmail(enteredEmail);
+        const enteredEmailNotAlreadyUsed = !doesEmailAlreadyExist(enteredEmail, loginCtx.users);
         const enteredPasswordIsValid = !isEmpty(enteredPassword) && isLengthValid(enteredPassword)
         && hasNumber(enteredPassword)
             && hasUppercase(enteredPassword) && hasSpecialChar(enteredPassword);
@@ -60,14 +75,15 @@ const RegisterForm = (props) => {
             surname: enteredSurnameIsValid,
             email: enteredEmailIsValid,
             password: enteredPasswordIsValid,
-            repeatPassword: enteredRepeatPasswordIsValid
+            repeatPassword: enteredRepeatPasswordIsValid,
+            emailNotInUse: enteredEmailNotAlreadyUsed
         });
 
         const formIsValid =
             enteredNameIsValid &&
             enteredSurnameIsValid &&
             enteredEmailIsValid &&
-            enteredPasswordIsValid && enteredRepeatPasswordIsValid;
+            enteredPasswordIsValid && enteredRepeatPasswordIsValid && enteredEmailNotAlreadyUsed;
 
         if (!formIsValid) {
             return;
@@ -80,9 +96,16 @@ const RegisterForm = (props) => {
             password: enteredPassword,
             userRole: userRole,
         });
-        navigate("/");
-        loginCtx.register();
+        setDidRegister(true);
     };
+
+    const onClose = () => {
+        setDidRegister(false);
+        loginCtx.register();
+        navigate("/login");
+
+    }
+
 
     const nameControlClasses = `${classes.control} ${
         formInputsValidity.name ? '' : classes.invalid
@@ -91,7 +114,7 @@ const RegisterForm = (props) => {
         formInputsValidity.surname ? '' : classes.invalid
     }`;
     const emailControlClasses = `${classes.control} ${
-        formInputsValidity.email ? '' : classes.invalid
+        (formInputsValidity.email && formInputsValidity.emailNotInUse) ? '' : classes.invalid
     }`;
     const passwordControlClasses = `${classes.control} ${
         formInputsValidity.password ? '' : classes.invalid
@@ -100,9 +123,22 @@ const RegisterForm = (props) => {
         formInputsValidity.repeatPassword ? '' : classes.invalid
     }`;
 
+    const didRegisterModalContent = (
+        <Modal>
+            <p>Successfully registered!</p>
+            <p>Please log in</p>
+            <div className={classes.actions}>
+                <button onClick={onClose}>
+                    Close
+                </button>
+            </div>
+        </Modal>
+    );
+
     return (
         <div className={registerClasses.form}>
             <h1 className={registerClasses.title}>Registration</h1>
+            {didRegister && didRegisterModalContent}
             <form onSubmit={registerHandler}>
                 <div className={nameControlClasses}>
                     <label htmlFor='name'>Name</label>
@@ -118,6 +154,7 @@ const RegisterForm = (props) => {
                     <label htmlFor='email'>Email</label>
                     <input type='text' id='email' ref={emailInputRef} />
                     {!formInputsValidity.email && <p>Please enter a valid email!</p>}
+                    {!formInputsValidity.emailNotInUse && <p>It seems there is already a user with this email. Try again!</p>}
                 </div>
                 <div className={passwordControlClasses}>
                     <label htmlFor='password'>Password</label>

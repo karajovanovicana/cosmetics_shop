@@ -129,7 +129,9 @@ const ChangePassword = (props) => {
                     <label htmlFor='newPassword'>New Password</label>
                     <input className={classes.passwordInput} type='password' id='newPassword' ref={newPasswordInputRef}/>
                     {!formInputsValidity.newPassword &&
-                        <p>Please enter a valid new password!</p>}
+                        <p>Please enter a valid password! (password must be at least 6 characters long,
+                            contain at least
+                            one number, one special character and one uppercase letter)</p>}
                 </div>
                 <div className={repeatNewPasswordControlClasses}>
                     <label htmlFor='repeatNewPassword'>Repeat New Password</label>
